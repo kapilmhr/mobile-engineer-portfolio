@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Senior Mobile Engineer | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+  --bg: #080a0f;
+  --bg2: #0b0e14;
+  --border: rgba(255, 255, 255, 0.08);
+  --green: #4ade80;
+  --mono: 'JetBrains Mono', monospace;
+  --cyan: #22d3ee;
+  --display: 'Space Grotesk', sans-serif;
+  --text: #f8fafc;
+  --surface: rgba(255, 255, 255, 0.02);
+  --text2: #94a3b8;
+  --text3: #475569;
+  --cyan-dim: rgba(34, 211, 238, 0.08);
+}
+
+/* ── NAVIGATION ── */
+#main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(8, 12, 20, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease, 
+              box-shadow 0.3s ease;
+}
+
+#main-nav.scrolled {
+  background: rgba(8, 12, 20, 0.98);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* LOGO */
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-logo-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #00d4ff;
+  letter-spacing: 0.05em;
+}
+
+.nav-logo-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  list-style: none;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  transition: color 0.2s ease, 
+              background 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: #00d4ff;
+  background: rgba(0,212,255,0.08);
+}
+
+.nav-links a.active {
+  color: #00d4ff;
+}
+
+/* RIGHT SIDE ACTIONS */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* RESUME BUTTON */
+.nav-resume {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid #00d4ff;
+  color: #00d4ff;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-resume:hover {
+  background: #00d4ff;
+  color: #080c14;
+}
+
+/* HAMBURGER */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s;
+}
+
+.nav-hamburger:hover {
+  border-color: #00d4ff;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+  background: #00d4ff;
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+  background: #00d4ff;
+}
+
+/* ── ABOUT SECTION ── */
+#about {
+  padding: 100px 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+#about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at 80% 50%,
+    rgba(0, 212, 255, 0.04) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+/* LEFT COLUMN */
+.about-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+}
+
+.avail-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+
+.about-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.about-name {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 0.95;
+  margin-bottom: 2.5rem;
+}
+
+.about-name span {
+  color: var(--cyan);
+  display: block;
+}
+
+/* PHILOSOPHY BLOCK */
+.about-philosophy {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--cyan);
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.phil-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 0.6rem;
+}
+
+.phil-quote {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text2);
+  line-height: 1.75;
+  font-style: normal;
+}
+
+/* DOMAIN TAGS */
+.about-domains {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.domain-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  transition: all 0.2s;
+}
+
+.domain-tag:hover {
+  color: var(--cyan);
+  border-color: rgba(0, 212, 255, 0.3);
+  background: var(--cyan-dim);
+}
+
+/* RIGHT COLUMN */
+
+/* BIO CARD */
+.about-bio-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.bio-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.2rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.bio-card-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text2);
+  letter-spacing: 0.05em;
+}
+
+.bio-card-lang {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+
+.bio-card-body {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bio-text {
+  font-size: 0.92rem;
+  color: var(--text2);
+  line-height: 1.85;
+}
+
+.bio-text strong {
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+/* MINI STATS ROW */
+.about-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.about-mini-stat {
+  background: var(--surface);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.mini-stat-num {
+  font-family: var(--display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.mini-stat-num em {
+  font-style: normal;
+  color: var(--cyan);
+  font-size: 1.2rem;
+}
+
+.mini-stat-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* FOCUS AREAS */
+.about-focus-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.4rem 1.6rem;
+}
+
+.focus-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--cyan);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.focus-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.focus-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text2);
+}
+
+.focus-icon {
+  color: var(--cyan);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 1.5rem;
+  }
+
+  .about-name {
+    font-size: 3rem;
+  }
+
+  .about-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  #about {
+    padding: 60px 0;
+  }
+
+  .about-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-name {
+    font-size: 2.5rem;
+  }
+
+  .bio-card-body {
+    padding: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avail-dot {
+    animation: none;
+  }
+}
+
+/* PUSH BODY DOWN SO HERO IS NOT HIDDEN */
+body {
+  /* Removed to avoid double padding with HeroSection */
+}
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(8,12,20,0.98);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
+    width: 240px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .nav-links a:hover {
+    color: #00d4ff;
+    background: rgba(0,212,255,0.08);
+  }
+
+  .nav-resume {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+  .nav-links li:last-child {
+    margin-top: 1rem;
+  }
+
+  .nav-links li:last-child a {
+    color: #00d4ff;
+    border: 1px solid #00d4ff;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-inner {
+    padding: 0 1.2rem;
+  }
+  .nav-logo-name {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main-nav,
+  .nav-links,
+  .nav-hamburger span {
+    transition: none;
+  }
+}
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <nav id="main-nav">
+      <div class="nav-inner">
+
+        <a href="#hero" class="nav-logo">
+          <span class="nav-logo-name">Kapil Maharjan</span>
+          <span class="nav-logo-role">Staff Engineer</span>
+        </a>
+
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#principles">Principles</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#terminal">Terminal</a></li>
+          <li><a href="#thought-leadership">Writing & Talks</a></li>
+          <li><a href="#oss">Open Source</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="/resume.pdf" 
+             class="nav-resume" 
+             download="KapilMaharjan_Resume.pdf"
+             target="_blank">
+            ↓ Resume
+          </a>
+          <button class="nav-hamburger" 
+                  id="hamburger" 
+                  aria-label="Toggle menu"
+                  aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+      </div>
+    </nav>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+/* ── NAV BEHAVIOUR ── */
+(function() {
+  const nav       = document.getElementById('main-nav');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
+  const allLinks  = navLinks.querySelectorAll('a');
+
+  /* 1 — Scrolled shadow */
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  /* 2 — Hamburger toggle */
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  /* 3 — Close mobile menu on link click */
+  allLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* 4 — Close on Escape key */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+
+  /* 5 — Active link on scroll */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        allLinks.forEach(link => {
+          link.classList.toggle(
+            'active',
+            link.getAttribute('href') === '#' + entry.target.id
+          );
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+
+  // Wait for React to render the sections
+  const checkSections = setInterval(() => {
+    const sections = document.querySelectorAll('section[id]');
+    if (sections.length > 0) {
+      clearInterval(checkSections);
+      sections.forEach(s => observer.observe(s));
+    }
+  }, 100);
+
+})();
+    </script>
+  </body>
+</html>
+
