@@ -1,8 +1,14 @@
 {
-  "name": "react-example",
+  "name": "mobile-engineer-portfolio",
+  "description": "Staff Mobile Engineer portfolio — cinematic dark-mode SPA with interactive architecture diagrams and engineering deep-dives",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "homepage": "https://github.com/kapilmhr/mobile-engineer-portfolio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kapilmhr/mobile-engineer-portfolio.git"
+  },
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
@@ -11,12 +17,8 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@google/genai": "^1.29.0",
     "@tailwindcss/vite": "^4.1.14",
-    "@vis.gl/react-google-maps": "^1.7.1",
     "@vitejs/plugin-react": "^5.0.4",
-    "dotenv": "^17.2.3",
-    "express": "^4.21.2",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.0",
@@ -25,7 +27,6 @@
     "vite": "^6.2.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^4.1.14",

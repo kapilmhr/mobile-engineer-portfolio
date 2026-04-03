@@ -3,10 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Senior Mobile Engineer | Portfolio</title>
+
+    <!-- Primary Meta Tags -->
+    <title>Kapil Maharjan — Staff Mobile Engineer | Portfolio</title>
+    <meta name="description" content="Staff Mobile Engineer with 10+ years shipping production apps across iOS, Android, Flutter, KMP, and React Native. Explore interactive architecture diagrams, engineering deep-dives, and real-world solutions." />
+    <meta name="author" content="Kapil Maharjan" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://kapil.info.np/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kapil Maharjan — Staff Mobile Engineer" />
+    <meta property="og:description" content="10+ years shipping native iOS, Android, Flutter, KMP & React Native. Interactive architecture diagrams and engineering deep-dives." />
+    <meta property="og:url" content="https://kapil.info.np/" />
+    <meta property="og:image" content="https://kapil.info.np/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kapil Maharjan — Staff Mobile Engineer" />
+    <meta name="twitter:description" content="10+ years shipping native iOS, Android, Flutter, KMP & React Native. Interactive architecture diagrams and engineering deep-dives." />
+    <meta name="twitter:image" content="https://kapil.info.np/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Kapil Maharjan",
+      "jobTitle": "Staff Mobile Engineer",
+      "description": "Staff Mobile Engineer with 10+ years building production mobile apps across iOS, Android, Flutter, KMP, and React Native.",
+      "url": "https://kapil.info.np",
+      "sameAs": [
+        "https://github.com/kapilmhr",
+        "https://www.linkedin.com/in/kapil-maharjan/"
+      ],
+      "knowsAbout": ["iOS", "Android", "Swift", "Kotlin", "Flutter", "KMP", "React Native", "SwiftUI", "Jetpack Compose"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sydney",
+        "addressCountry": "AU"
+      }
+    }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://picsum.photos">
     <style>
 :root {
   --bg: #080a0f;
@@ -120,24 +171,7 @@
   flex-shrink: 0;
 }
 
-/* RESUME BUTTON */
-.nav-resume {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.5rem 1.1rem;
-  border: 1px solid #00d4ff;
-  color: #00d4ff;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
 
-.nav-resume:hover {
-  background: #00d4ff;
-  color: #080c14;
-}
 
 /* HAMBURGER */
 .nav-hamburger {
@@ -525,9 +559,7 @@ body {
     background: rgba(0,212,255,0.08);
   }
 
-  .nav-resume {
-    display: none;
-  }
+
 
   .nav-hamburger {
     display: flex;
@@ -584,12 +616,6 @@ body {
         </ul>
 
         <div class="nav-actions">
-          <a href="/resume.pdf" 
-             class="nav-resume" 
-             download="KapilMaharjan_Resume.pdf"
-             target="_blank">
-            ↓ Resume
-          </a>
           <button class="nav-hamburger" 
                   id="hamburger" 
                   aria-label="Toggle menu"
