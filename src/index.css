@@ -5,6 +5,17 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+:root {
+  --background: #080a0f;
+  --foreground: #f1f5f9;
+  --card: #0f1520;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --border: rgba(255, 255, 255, 0.08);
+  --muted-foreground: #64748b;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 64px;

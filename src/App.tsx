@@ -26,6 +26,8 @@ function SimpleIcon({ icon, size = 24, className = "" }: { icon: any, size?: num
 }
 
 import { HowItWorksSection } from './HowItWorksSection';
+import { EngineeringSolutionsSection } from './EngineeringSolutionsSection';
+import ContactFooter from './ContactFooter';
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,18 +61,19 @@ export default function App() {
       <main className="relative z-10">
         <HeroSection />
         <AboutSection />
-        <TechMarquee />
+        {/* <TechMarquee /> */}
         <ImpactMetricsSection />
-        <EngineeringPrinciplesSection />
+        {/* <EngineeringPrinciplesSection /> */}
         <HowItWorksSection />
         <SystemArchitectureSection />
         <EngineeringDeepDivesSection />
-        <WorkSection />
-        <InteractiveTerminal />
+        <EngineeringSolutionsSection />
+        {/* <WorkSection /> */}
+        {/* <InteractiveTerminal /> */}
         <ThoughtLeadershipSection />
         <OpenSourceSection />
-        <ContactSection />
       </main>
+      <ContactFooter />
     </div>
   );
 }
@@ -239,11 +242,11 @@ function HeroSection() {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => scrollToSection('engineering-principles')}
+              onClick={() => scrollToSection('problems')}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-[#94a3b8] transition-colors duration-200 hover:text-[#f1f5f9]"
               style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}
             >
-              <Terminal size={15} /> View decision log
+              <Terminal size={15} /> Engineering deep dives
             </motion.button>
           </motion.div>
 
@@ -3090,67 +3093,6 @@ function StackSection() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-function ContactSection() {
-  return (
-    <section id="contact" className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 hero-mesh opacity-60" />
-      <div className="absolute inset-0 dot-grid opacity-20" />
-      <motion.div
-        animate={{ x: [0, 30, -20, 0], y: [0, -40, 20, 0], scale: [1, 1.1, 0.92, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
-      />
-
-      <div className="max-w-5xl mx-auto relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full font-mono text-[11px] text-[#22d3ee] tracking-[0.06em]"
-            style={{ background: 'rgba(34,211,238,0.07)', border: '1px solid rgba(34,211,238,0.18)' }}>
-            <div className="w-1.5 h-1.5 rounded-full bg-[#22d3ee]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
-            Open to opportunities
-          </div>
-
-          <h2 className="leading-none font-black tracking-tighter uppercase mb-6"
-            style={{ fontSize: 'clamp(52px, 9vw, 120px)' }}>
-            Let's Build<br />
-            <span className="shimmer-text italic font-light" style={{ letterSpacing: '-0.02em' }}>Together</span>
-          </h2>
-
-          <p className="text-white/50 text-lg max-w-xl mx-auto mb-12 leading-relaxed">
-            Currently accepting new projects for Q3 2026. If you're building something ambitious, I'd love to hear about it.
-          </p>
-
-          <motion.a
-            href="mailto:stackflutter@gmail.com"
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white"
-            style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)', boxShadow: '0 0 40px rgba(6,182,212,0.35)', transition: 'box-shadow 0.3s ease' }}
-          >
-            <Mail size={20} />
-            Start a Conversation
-          </motion.a>
-
-          <div className="mt-24 pt-8 border-t border-white/[0.07] flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-white/30 uppercase tracking-wider">
-            <p>© 2026 Kapil Maharjan</p>
-            <div className="flex gap-6">
-              <motion.a whileHover={{ color: '#fff', scale: 1.05 }} href="https://github.com/kapilmhr" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors"><Github size={14} /> GitHub</motion.a>
-              <motion.a whileHover={{ color: '#fff', scale: 1.05 }} href="https://www.linkedin.com/in/kapil-maharjan/" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors"><Linkedin size={14} /> LinkedIn</motion.a>
-            </div>
-            <p>Sydney, Australia</p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
