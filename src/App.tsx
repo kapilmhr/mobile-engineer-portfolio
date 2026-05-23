@@ -75,306 +75,231 @@ export default function App() {
   );
 }
 
+function FloatingOrbs() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <motion.div
+        animate={{ x: [0, 50, -30, 0], y: [0, -70, 40, 0], scale: [1, 1.18, 0.88, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute rounded-full"
+        style={{
+          top: '-15%', left: '-10%',
+          width: '65vw', height: '65vw', maxWidth: 750, maxHeight: 750,
+          background: 'radial-gradient(circle, rgba(96,165,250,0.13) 0%, transparent 70%)',
+          filter: 'blur(70px)',
+        }}
+      />
+      <motion.div
+        animate={{ x: [0, -50, 70, 0], y: [0, 60, -40, 0], scale: [1, 0.82, 1.12, 1] }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
+        className="absolute rounded-full"
+        style={{
+          top: '25%', right: '-12%',
+          width: '55vw', height: '55vw', maxWidth: 650, maxHeight: 650,
+          background: 'radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)',
+          filter: 'blur(70px)',
+        }}
+      />
+      <motion.div
+        animate={{ x: [0, 40, -60, 0], y: [0, -35, 70, 0], scale: [1, 1.08, 0.92, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 10 }}
+        className="absolute rounded-full"
+        style={{
+          bottom: '-8%', left: '35%',
+          width: '45vw', height: '45vw', maxWidth: 550, maxHeight: 550,
+          background: 'radial-gradient(circle, rgba(244,114,182,0.07) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
+    </div>
+  );
+}
+
 function HeroSection() {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  return (
-    <section id="hero" className="relative min-h-[520px] bg-[#080a0f] overflow-hidden pt-[60px]">
-      {/* Grid Overlay */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)
-          `,
-          backgroundSize: '52px 52px'
-        }}
-      />
+  const pills = [
+    { label: 'Swift',            color: '#f97316', bg: 'rgba(249,115,22,0.08)',  border: 'rgba(249,115,22,0.22)' },
+    { label: 'Kotlin',           color: '#4ade80', bg: 'rgba(74,222,128,0.08)',  border: 'rgba(74,222,128,0.22)' },
+    { label: 'Flutter / Dart',   color: '#54c5f8', bg: 'rgba(84,197,248,0.08)',  border: 'rgba(84,197,248,0.22)' },
+    { label: 'KMP',              color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  border: 'rgba(251,191,36,0.22)' },
+    { label: 'SwiftUI',          color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.22)' },
+    { label: 'Jetpack Compose',  color: '#a78bfa', bg: 'rgba(167,139,250,0.08)', border: 'rgba(167,139,250,0.22)' },
+    { label: 'React Native',     color: '#60a5fa', bg: 'rgba(96,165,250,0.08)',  border: 'rgba(96,165,250,0.22)' },
+  ];
 
-      {/* Main Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_320px_220px] gap-8 items-start" style={{ padding: '48px 44px 40px' }}>
-        
-        {/* LEFT COLUMN */}
-        <div className="flex flex-col">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
-            className="inline-flex items-center gap-[8px] font-mono text-[10px] text-[#22d3ee] tracking-[0.06em] mb-[26px]"
-            style={{
-              background: 'rgba(34,211,238,0.07)',
-              border: '1px solid rgba(34,211,238,0.18)',
-              padding: '4px 12px',
-              borderRadius: '20px'
-            }}
+  const stats = [
+    { icon: TrendingUp, value: '1M+', label: 'users · largest app shipped',  color: '#4ade80' },
+    { icon: Timer,      value: '55%', label: 'TTI · crash · ANR gains',      color: '#fbbf24' },
+    { icon: Layers,     value: '7+',  label: 'migrations led · every stack', color: '#a78bfa' },
+    { icon: User,       value: '7',   label: 'senior engineers mentored',    color: '#f472b6' },
+  ];
+
+  return (
+    <section id="hero" className="relative min-h-screen bg-[#080a0f] overflow-hidden flex flex-col">
+      {/* Background layers */}
+      <div className="absolute inset-0 hero-mesh" />
+      <div className="absolute inset-0 dot-grid" style={{ opacity: 0.45 }} />
+      <FloatingOrbs />
+
+      {/* Two-column layout */}
+      <div className="relative z-10 flex-1 flex flex-row items-center px-6 lg:px-20 pt-24 pb-12 w-full max-w-7xl mx-auto gap-12 lg:gap-20">
+
+        {/* Left: content */}
+        <div className="flex-1 flex flex-col items-start text-left">
+
+          {/* Available badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 mb-7 px-4 py-2 rounded-full"
+            style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.22)', backdropFilter: 'blur(12px)' }}
           >
-            <div className="w-[6px] h-[6px] rounded-full bg-[#22d3ee] animate-pulse" style={{ animationDuration: '2s' }} />
-            Staff Mobile Engineer · 10+ years
+            <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
+            <span className="font-mono text-[11px] text-[#4ade80] tracking-[0.05em]">
+              Available · Staff / Principal roles · Sydney AU
+            </span>
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 10 }}
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-            className="font-bold text-[#f8fafc] mb-[22px]"
-            style={{ fontSize: '46px', lineHeight: 1.06, letterSpacing: '-0.03em' }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="font-mono text-[11px] text-[#334155] tracking-[0.18em] uppercase mb-5"
           >
-            I've shipped on<br/>
-            <span className="text-[#60a5fa]">every major</span><br/>
+            Staff Mobile Engineer · 10+ years production
+          </motion.p>
+
+          {/* Hero headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+            className="font-black text-[#f1f5f9] mb-6"
+            style={{ fontSize: 'clamp(36px, 5vw, 72px)', lineHeight: 1.03, letterSpacing: '-0.04em' }}
+          >
+            I've shipped on<br />
+            <span className="shimmer-text">every major</span><br />
             mobile stack.
           </motion.h1>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
-            className="font-mono text-[13px] text-[#475569] mb-[28px]"
-            style={{ borderLeft: '2px solid #1e2a3a', paddingLeft: '14px', lineHeight: 1.85 }}
+            transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[#64748b] max-w-lg text-[15px] leading-relaxed mb-8"
           >
-            Swift · Kotlin · Dart · KMP · React Native.<br/>
-            <span className="text-[#94a3b8] font-medium">Not as a generalist who dabbles</span> — as someone who has<br/>
-            led <span className="text-[#60a5fa]">7 production migrations</span> between them,<br/>
-            shipped to <span className="text-[#60a5fa]">1M+ users</span>, and knows exactly<br/>
-            when to use each one and <span className="text-[#94a3b8] font-medium">why</span>.
-          </motion.div>
+            Swift · Kotlin · Dart · KMP · React Native —{' '}
+            not as a generalist, but someone who has led{' '}
+            <span className="text-[#94a3b8] font-medium">7 production migrations</span>{' '}
+            and shipped to{' '}
+            <span className="text-[#94a3b8] font-medium">1M+ users</span>.
+          </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+          {/* Tech pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-            className="flex flex-wrap gap-[5px] mb-[30px]"
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap gap-2 mb-10"
           >
-            {[
-              { label: 'Swift', color: '#f97316', bg: 'rgba(249,115,22,0.08)', border: 'rgba(249,115,22,0.2)' },
-              { label: 'Kotlin', color: '#4ade80', bg: 'rgba(74,222,128,0.08)', border: 'rgba(74,222,128,0.2)' },
-              { label: 'Dart', color: '#54c5f8', bg: 'rgba(84,197,248,0.08)', border: 'rgba(84,197,248,0.2)' },
-              { label: 'KMP', color: '#fbbf24', bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.2)' },
-              { label: 'SwiftUI', color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.2)' },
-              { label: 'Jetpack Compose', color: '#a78bfa', bg: 'rgba(167,139,250,0.08)', border: 'rgba(167,139,250,0.2)' },
-              { label: 'React Native', color: '#60a5fa', bg: 'rgba(96,165,250,0.08)', border: 'rgba(96,165,250,0.2)' },
-            ].map(pill => (
-              <span key={pill.label} className="font-mono text-[10px] rounded-[5px]" style={{ padding: '3px 9px', color: pill.color, background: pill.bg, border: `1px solid ${pill.border}` }}>
+            {pills.map(pill => (
+              <span
+                key={pill.label}
+                className="font-mono text-[10px] rounded-full px-3 py-1 tracking-[0.04em]"
+                style={{ color: pill.color, background: pill.bg, border: `1px solid ${pill.border}` }}
+              >
                 {pill.label}
               </span>
             ))}
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
-            className="flex flex-wrap gap-[10px]"
+            transition={{ duration: 0.5, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-center gap-3"
           >
-            <button 
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => scrollToSection('architecture')}
-              className="flex items-center gap-[6px] bg-[#60a5fa] text-[#042c53] font-mono text-[11px] font-semibold uppercase tracking-[0.05em] rounded-[8px] hover:bg-[#93c5fd] transition-colors"
-              style={{ padding: '11px 20px', border: 'none' }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white"
+              style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', boxShadow: '0 0 28px rgba(96,165,250,0.28)', transition: 'box-shadow 0.2s ease' }}
             >
-              <ArrowRight size={13} />
-              See the architecture
-            </button>
-            <button 
+              <ArrowRight size={15} /> See the architecture
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => scrollToSection('engineering-principles')}
-              className="flex items-center gap-[6px] bg-transparent text-[#60a5fa] font-mono text-[11px] font-medium uppercase tracking-[0.05em] rounded-[8px] hover:bg-[rgba(96,165,250,0.1)] transition-colors"
-              style={{ padding: '11px 20px', border: '1px solid rgba(96,165,250,0.22)' }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-[#94a3b8] transition-colors duration-200 hover:text-[#f1f5f9]"
+              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}
             >
-              <Terminal size={13} />
-              View decision log
-            </button>
-          </motion.div>
-        </div>
-
-        {/* CENTER COLUMN */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="relative flex flex-col items-center px-[16px] lg:col-span-1 md:col-span-2 lg:row-auto md:row-start-2"
-        >
-          <div className="relative w-full max-w-[290px]">
-            <img
-              src="avatar.png"
-              alt="Kapil — Staff Mobile Engineer"
-              style={{
-                width: '100%',
-                aspectRatio: '3/4',
-                objectFit: 'cover',
-                objectPosition: 'center top',
-                borderRadius: '20px',
-                border: '1px solid #1e2a3a',
-                display: 'block'
-              }}
-            />
-
-            {/* Floating Badge - Available */}
-            <div 
-              className="absolute flex items-center gap-[6px] bg-[#0f172a] rounded-[10px]"
-              style={{ top: '16px', left: '-20px', border: '1px solid rgba(74,222,128,0.2)', padding: '7px 12px' }}
-            >
-              <div className="w-[6px] h-[6px] rounded-full bg-[#4ade80] animate-pulse" style={{ animationDuration: '2s' }} />
-              <span className="font-mono text-[10px] text-[#4ade80]">Available</span>
-            </div>
-
-            {/* Floating Badge - Repos */}
-            <div 
-              className="absolute flex items-center gap-[8px] bg-[#0f172a] rounded-[10px]"
-              style={{ top: '16px', right: '-20px', border: '1px solid #1e2a3a', padding: '8px 12px' }}
-            >
-              <Github size={16} className="text-[#475569]" />
-              <div className="flex flex-col">
-                <span className="font-sans font-bold text-[15px] text-[#f1f5f9] leading-none">50+</span>
-                <span className="font-mono text-[9px] text-[#475569] tracking-[0.06em]">Open Source</span>
-              </div>
-            </div>
-
-            {/* Floating Badge - Role */}
-            <div 
-              className="absolute flex items-center gap-[10px] bg-[#0f172a] rounded-[12px] whitespace-nowrap min-w-[220px]"
-              style={{ bottom: '-16px', left: '50%', transform: 'translateX(-50%)', border: '1px solid #1e2a3a', padding: '10px 16px' }}
-            >
-              <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[8px]" style={{ background: 'rgba(96,165,250,0.1)', border: '1px solid rgba(96,165,250,0.2)' }}>
-                <Code2 size={16} className="text-[#60a5fa]" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-sans font-semibold text-[13px] text-[#f1f5f9]">Staff Mobile Engineer</span>
-                <span className="font-mono text-[10px] text-[#475569]">iOS · Android · Flutter · KMP</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* RIGHT COLUMN */}
-        <div className="flex flex-col gap-[9px] pt-[4px] pl-[8px] lg:col-span-1 md:col-span-2">
-          
-          {/* Stat 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
-            className="flex items-center gap-[10px] bg-[#0f172a] rounded-[11px] hover:border-[#2d3f55] transition-colors duration-200"
-            style={{ border: '1px solid #1e2a3a', padding: '13px 15px' }}
-          >
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[7px]" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)' }}>
-              <TrendingUp size={16} className="text-[#4ade80]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-[18px] text-[#4ade80] leading-none mb-[2px]">1M+</span>
-              <span className="font-mono text-[9px] text-[#475569] tracking-[0.06em]">users · largest app shipped</span>
-            </div>
-          </motion.div>
-
-          {/* Stat 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.38, ease: "easeOut" }}
-            className="flex items-center gap-[10px] bg-[#0f172a] rounded-[11px] hover:border-[#2d3f55] transition-colors duration-200"
-            style={{ border: '1px solid #1e2a3a', padding: '13px 15px' }}
-          >
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[7px]" style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.15)' }}>
-              <Timer size={16} className="text-[#fbbf24]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-[18px] text-[#fbbf24] leading-none mb-[2px]">55%</span>
-              <span className="font-mono text-[9px] text-[#475569] tracking-[0.06em]">TTI · crash · ANR gains</span>
-            </div>
-          </motion.div>
-
-          {/* Stat 3 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.51, ease: "easeOut" }}
-            className="flex items-center gap-[10px] bg-[#0f172a] rounded-[11px] hover:border-[#2d3f55] transition-colors duration-200"
-            style={{ border: '1px solid #1e2a3a', padding: '13px 15px' }}
-          >
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[7px]" style={{ background: 'rgba(167,139,250,0.08)', border: '1px solid rgba(167,139,250,0.15)' }}>
-              <ArrowRight size={16} className="text-[#a78bfa]" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-[18px] text-[#a78bfa] leading-none mb-[2px]">7+</span>
-              <span className="font-mono text-[9px] text-[#475569] tracking-[0.06em]">migrations · every direction</span>
-            </div>
-          </motion.div>
-
-          {/* Stat 4 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.51, ease: "easeOut" }}
-            className="flex items-center gap-[10px] bg-[#0f172a] rounded-[11px] hover:border-[#2d3f55] transition-colors duration-200"
-            style={{ border: '1px solid #1e2a3a', padding: '13px 15px' }}
-          >
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[7px]" style={{ background: 'rgba(244,114,182,0.08)', border: '1px solid rgba(244,114,182,0.15)' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#f472b6]">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-[18px] text-[#f472b6] leading-none mb-[2px]">7</span>
-              <span className="font-mono text-[9px] text-[#475569] tracking-[0.06em]">senior engineers mentored</span>
-            </div>
-          </motion.div>
-
-          {/* Tech Stack Card */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.64, ease: "easeOut" }}
-            className="bg-[#0f172a] rounded-[11px] hover:border-[#2d3f55] transition-colors duration-200"
-            style={{ border: '1px solid #1e2a3a', padding: '13px 15px' }}
-          >
-            <div className="font-mono text-[9px] text-[#334155] uppercase tracking-[0.1em] mb-[9px]">full stack · every platform</div>
-            <div className="flex flex-wrap gap-[4px]">
-              {[
-                { label: 'UIKit', color: '#f97316', bg: 'rgba(249,115,22,0.08)', border: 'rgba(249,115,22,0.2)' },
-                { label: 'SwiftUI', color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.2)' },
-                { label: 'XML', color: '#94a3b8', bg: 'rgba(148,163,184,0.08)', border: 'rgba(148,163,184,0.15)' },
-                { label: 'Compose', color: '#4ade80', bg: 'rgba(74,222,128,0.08)', border: 'rgba(74,222,128,0.2)' },
-                { label: 'Flutter', color: '#54c5f8', bg: 'rgba(84,197,248,0.08)', border: 'rgba(84,197,248,0.2)' },
-                { label: 'KMP', color: '#fbbf24', bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.2)' },
-                { label: 'RN', color: '#60a5fa', bg: 'rgba(96,165,250,0.08)', border: 'rgba(96,165,250,0.2)' },
-              ].map(pill => (
-                <span key={pill.label} className="font-mono text-[9px] rounded-[4px]" style={{ padding: '2px 7px', color: pill.color, background: pill.bg, border: `1px solid ${pill.border}` }}>
-                  {pill.label}
-                </span>
-              ))}
-            </div>
+              <Terminal size={15} /> View decision log
+            </motion.button>
           </motion.div>
 
         </div>
+
+        {/* Right: image only */}
+        <motion.img
+          src="kapil_avatar.png"
+          alt="Kapil — Staff Mobile Engineer"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="hidden md:block flex-shrink-0 w-[22vw] max-w-[300px] min-w-[180px] h-auto"
+        />
+
       </div>
 
-      {/* Bottom Strip */}
-      <div 
-        className="relative z-10 flex flex-wrap items-center gap-[24px]"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.04)', padding: '13px 44px' }}
+      {/* Stats strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
       >
-        <div className="flex items-center gap-[6px] font-mono text-[10px] text-[#334155]">
-          <Github size={12} />
-          50+ repos
+        <div className="max-w-4xl mx-auto px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -2, transition: { duration: 0.15 } }}
+              className="glass-2 rounded-xl p-4 flex items-center gap-3 cursor-default"
+            >
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0" style={{ background: `${stat.color}14`, border: `1px solid ${stat.color}28` }}>
+                <stat.icon size={15} style={{ color: stat.color }} />
+              </div>
+              <div>
+                <div className="font-black text-[17px] leading-none mb-0.5" style={{ color: stat.color }}>{stat.value}</div>
+                <div className="font-mono text-[9px] text-[#475569] leading-tight">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-        <div className="w-[3px] h-[3px] rounded-full bg-[#1e2a3a]" />
-        <div className="flex items-center gap-[6px] font-mono text-[10px] text-[#334155]">
-          <Timer size={12} />
-          10+ years production mobile
+
+        {/* Metadata row */}
+        <div className="max-w-4xl mx-auto px-6 pb-5 flex flex-wrap items-center gap-5 font-mono text-[10px] text-[#2d3f55]">
+          <div className="flex items-center gap-1.5"><Github size={11} /> 50+ repos</div>
+          <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
+          <div className="flex items-center gap-1.5"><Timer size={11} /> 10+ years production mobile</div>
+          <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
+          <div className="flex items-center gap-1.5"><MapPin size={11} /> Sydney, Australia · UTC+11</div>
+          <div className="flex items-center gap-1.5 ml-auto">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
+            Open to staff / principal roles
+          </div>
         </div>
-        <div className="w-[3px] h-[3px] rounded-full bg-[#1e2a3a]" />
-        <div className="flex items-center gap-[6px] font-mono text-[10px] text-[#334155]">
-          <MapPin size={12} />
-          Sydney, Australia · UTC+11
-        </div>
-        
-        <div className="flex items-center gap-[6px] font-mono text-[10px] text-[#334155] ml-auto">
-          <div className="w-[6px] h-[6px] rounded-full bg-[#4ade80] animate-pulse" style={{ animationDuration: '2s' }} />
-          Open to staff / principal roles
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -605,64 +530,28 @@ function ImpactMetricsSection() {
         {/* Block 1 — Stat cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 mb-8">
           {/* Card 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.05, duration: 0.6 }}
-            className="bg-[#161b27] border-t border-b border-r border-[#1e2a3a] border-l-[3px] border-l-[#4ade80] p-6 rounded-tl-xl sm:rounded-bl-xl"
-          >
-            <div className="text-[36px] font-bold text-[#4ade80] leading-none mb-2 font-sans">
-              {counts.users >= 1000 ? `${(counts.users / 1000).toFixed(1)}M+` : counts.users}
-            </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 mb-3">users served</div>
-            <div className="text-[12px] text-zinc-400 leading-relaxed">Largest production app shipped across iOS & Android</div>
-          </motion.div>
-
-          {/* Card 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="bg-[#161b27] border-t border-b border-r border-[#1e2a3a] border-l-[3px] border-l-[#f59e0b] p-6 rounded-tr-xl sm:rounded-none"
-          >
-            <div className="text-[36px] font-bold text-[#f59e0b] leading-none mb-2 font-sans">
-              {counts.perf}<span className="text-[22px]">%</span>
-            </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 mb-3">perf improvement</div>
-            <div className="text-[12px] text-zinc-400 leading-relaxed">TTI, crash rate, ANR & app size — across multiple apps</div>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25, duration: 0.6 }}
-            className="bg-[#161b27] border-b sm:border-t border-r border-[#1e2a3a] border-l-[3px] border-l-[#a78bfa] p-6 rounded-bl-xl sm:rounded-none"
-          >
-            <div className="text-[36px] font-bold text-[#a78bfa] leading-none mb-2 font-sans">
-              {counts.eng}
-            </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 mb-3">senior engineers mentored</div>
-            <div className="text-[12px] text-zinc-400 leading-relaxed">iOS, Android & Flutter engineers across cross-functional teams</div>
-          </motion.div>
-
-          {/* Card 4 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="bg-[#161b27] border-b sm:border-t border-r border-[#1e2a3a] border-l-[3px] border-l-[#f472b6] p-6 rounded-br-xl sm:rounded-tr-xl"
-          >
-            <div className="text-[36px] font-bold text-[#f472b6] leading-none mb-2 font-sans">
-              {counts.mig}+
-            </div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-zinc-500 mb-3">migrations led</div>
-            <div className="text-[12px] text-zinc-400 leading-relaxed">End-to-end platform rewrites across every major mobile stack</div>
-          </motion.div>
+          {[
+            { value: counts.users >= 1000 ? `${(counts.users/1000).toFixed(1)}M+` : String(counts.users), label: 'Users Served', desc: 'Largest production app shipped across iOS & Android', color: '#4ade80', delay: 0.05 },
+            { value: `${counts.perf}%`, label: 'Perf Improvement', desc: 'TTI, crash rate, ANR & app size — across multiple apps', color: '#f59e0b', delay: 0.15 },
+            { value: String(counts.eng), label: 'Engineers Mentored', desc: 'iOS, Android & Flutter engineers across cross-functional teams', color: '#a78bfa', delay: 0.25 },
+            { value: `${counts.mig}+`, label: 'Migrations Led', desc: 'End-to-end platform rewrites across every major mobile stack', color: '#f472b6', delay: 0.35 },
+          ].map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: card.delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              className="relative overflow-hidden glass-2 rounded-2xl p-6 group"
+            >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}10, transparent 65%)` }} />
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300" style={{ background: card.color }} />
+              <div className="text-[40px] font-black leading-none mb-2" style={{ color: card.color }}>{card.value}</div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.1em] mb-3" style={{ color: `${card.color}99` }}>{card.label}</div>
+              <div className="text-[12px] text-zinc-400 leading-relaxed">{card.desc}</div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Block 2 — Migration track record strip */}
@@ -807,17 +696,19 @@ function WorkSection() {
 
         <div className="flex flex-wrap gap-3 mb-16">
           {filters.map(filter => (
-            <button
+            <motion.button
               key={filter}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveFilter(filter)}
-              className={`px-5 py-2.5 rounded-full font-mono text-sm transition-colors ${
-                activeFilter === filter 
-                  ? 'bg-white text-black' 
-                  : 'bg-white/5 text-zinc-400 hover:bg-white/10 border border-white/10'
+              className={`px-5 py-2.5 rounded-full font-mono text-sm transition-all duration-200 ${
+                activeFilter === filter
+                  ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                  : 'glass-2 text-zinc-400 hover:text-white hover:border-white/20'
               }`}
             >
               {filter}
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -831,7 +722,7 @@ function WorkSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-[2.5rem] flex flex-col items-center gap-8 hover:bg-white/[0.07] transition-colors h-full"
+                className="glass-2 hover:border-white/[0.14] p-6 md:p-8 rounded-[2.5rem] flex flex-col items-center gap-8 transition-all duration-300 h-full group"
               >
                 
                 {/* Interactive Prototype */}
@@ -849,7 +740,7 @@ function WorkSection() {
                   </div>
                 
                   <div className="space-y-4 mt-auto">
-                    <div className="bg-black/40 p-5 rounded-2xl border border-white/5">
+                    <div className="glass-1 p-5 rounded-2xl">
                       <h4 className="text-white/80 font-mono text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                         The Challenge
@@ -857,7 +748,7 @@ function WorkSection() {
                       <p className="text-white/60 leading-relaxed text-sm">{p.challenge}</p>
                     </div>
 
-                    <div className="bg-black/40 p-5 rounded-2xl border border-white/5">
+                    <div className="glass-1 p-5 rounded-2xl">
                       <h4 className="text-white/80 font-mono text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         The Solution
@@ -1635,8 +1526,8 @@ function EngineeringPrinciplesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
           {/* Card 1 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(96,165,250,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#60a5fa' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -1657,8 +1548,8 @@ function EngineeringPrinciplesSection() {
           </div>
 
           {/* Card 2 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(251,191,36,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#fbbf24' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -1679,8 +1570,8 @@ function EngineeringPrinciplesSection() {
           </div>
 
           {/* Card 3 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(167,139,250,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#a78bfa' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -1701,8 +1592,8 @@ function EngineeringPrinciplesSection() {
           </div>
 
           {/* Card 4 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(74,222,128,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#4ade80' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -1723,8 +1614,8 @@ function EngineeringPrinciplesSection() {
           </div>
 
           {/* Card 5 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(244,114,182,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#f472b6' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -1744,8 +1635,8 @@ function EngineeringPrinciplesSection() {
           </div>
 
           {/* Card 6 */}
-          <div 
-            className="ep-principles-card relative overflow-hidden bg-[#111827] border-[0.5px] border-[#1e2a3a] rounded-[14px] p-[24px] hover:border-[#2d3f55] transition-colors duration-200 group"
+          <div
+            className="ep-principles-card relative overflow-hidden glass-2 rounded-[14px] p-[24px] hover:border-[rgba(248,113,113,0.2)] transition-all duration-300 group cursor-default"
             style={{ '--ac': '#f87171' } as any}
           >
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--ac)] opacity-40 rounded-b-[14px] group-hover:opacity-80 transition-opacity duration-200" />
@@ -3207,39 +3098,57 @@ function StackSection() {
 function ContactSection() {
   return (
     <section id="contact" className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-cyan-950/20 pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto relative z-10 text-center">
+      {/* Background */}
+      <div className="absolute inset-0 hero-mesh opacity-60" />
+      <div className="absolute inset-0 dot-grid opacity-20" />
+      <motion.div
+        animate={{ x: [0, 30, -20, 0], y: [0, -40, 20, 0], scale: [1, 1.1, 0.92, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
+
+      <div className="max-w-5xl mx-auto relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="text-[10vw] md:text-[8vw] leading-none font-bold tracking-tighter uppercase mb-8">
-            Let's Build <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 italic font-light">Together</span>
+          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full font-mono text-[11px] text-[#22d3ee] tracking-[0.06em]"
+            style={{ background: 'rgba(34,211,238,0.07)', border: '1px solid rgba(34,211,238,0.18)' }}>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#22d3ee]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
+            Open to opportunities
+          </div>
+
+          <h2 className="leading-none font-black tracking-tighter uppercase mb-6"
+            style={{ fontSize: 'clamp(52px, 9vw, 120px)' }}>
+            Let's Build<br />
+            <span className="shimmer-text italic font-light" style={{ letterSpacing: '-0.02em' }}>Together</span>
           </h2>
-          
-          <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+
+          <p className="text-white/50 text-lg max-w-xl mx-auto mb-12 leading-relaxed">
             Currently accepting new projects for Q3 2026. If you're building something ambitious, I'd love to hear about it.
           </p>
-          
-          <a 
+
+          <motion.a
             href="mailto:stackflutter@gmail.com"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-cyan-500 text-zinc-950 font-bold hover:bg-cyan-400 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(6,182,212,0.3)]"
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white"
+            style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)', boxShadow: '0 0 40px rgba(6,182,212,0.35)', transition: 'box-shadow 0.3s ease' }}
           >
             <Mail size={20} />
             Start a Conversation
-          </a>
-          
-          <div className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-white/40 uppercase tracking-wider">
-            <p>© 2026 Kapil</p>
+          </motion.a>
+
+          <div className="mt-24 pt-8 border-t border-white/[0.07] flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs text-white/30 uppercase tracking-wider">
+            <p>© 2026 Kapil Maharjan</p>
             <div className="flex gap-6">
-              <a href="https://github.com/kapilmhr" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><Github size={14} /> GitHub</a>
-              <a href="https://www.linkedin.com/in/kapil-maharjan/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><Linkedin size={14} /> LinkedIn</a>
+              <motion.a whileHover={{ color: '#fff', scale: 1.05 }} href="https://github.com/kapilmhr" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors"><Github size={14} /> GitHub</motion.a>
+              <motion.a whileHover={{ color: '#fff', scale: 1.05 }} href="https://www.linkedin.com/in/kapil-maharjan/" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors"><Linkedin size={14} /> LinkedIn</motion.a>
             </div>
-            <p>Designed in California</p>
+            <p>Sydney, Australia</p>
           </div>
         </motion.div>
       </div>
