@@ -46,7 +46,7 @@
 | **Title** | Staff Mobile Engineer |
 | **Experience** | 10+ years production mobile |
 | **Location** | Sydney, Australia · UTC+11 |
-| **Email** | stackflutter@gmail.com |
+| **Email** | kapilmhr016@gmail.com |
 | **GitHub** | github.com/kapilmhr |
 | **LinkedIn** | linkedin.com/in/kapil-maharjan/ |
 | **Website** | https://kapil.info.np |
@@ -560,7 +560,7 @@ Full project details in [Section 6](#6-all-projects-engineering-solutions).
 |---|---|
 | `whoami` | "A passionate software engineer focused on building scalable, high-performance applications." |
 | `skills` | "Frontend: React, Vue, Tailwind\nBackend: Node.js, Python, Go\nDevOps: Docker, AWS, CI/CD" |
-| `contact` | "Email: stackflutter@gmail.com\nGitHub: github.com/stackflutter" |
+| `contact` | "Email: kapilmhr016@gmail.com\nGitHub: github.com/kapilmhr" |
 | `experience` | "Lead Mobile Engineer @ FinTech Unicorn (2023-Present)\nSenior iOS Developer @ HealthCare Startup (2020-2023)" |
 | `clear` | Clears terminal history |
 | *unknown* | "Command not found: X. Try 'whoami', 'skills', 'experience', or 'contact'." |
@@ -611,7 +611,7 @@ Full project details in [Section 6](#6-all-projects-engineering-solutions).
 
 **Body copy**: "Currently accepting new projects for Q3 2026. If you're building something ambitious, I'd love to hear about it."
 
-**CTA button**: "Start a Conversation" → `mailto:stackflutter@gmail.com` (cyan, with glowing shadow)
+**CTA button**: "Start a Conversation" → `mailto:kapilmhr016@gmail.com` (cyan, with glowing shadow)
 
 **Footer bar:**
 - `© 2026 Kapil` (left)

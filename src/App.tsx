@@ -1216,10 +1216,10 @@ function InteractiveTerminal() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const commands = {
-    'whoami': 'A passionate software engineer focused on building scalable, high-performance applications.',
-    'skills': 'Frontend: React, Vue, Tailwind\nBackend: Node.js, Python, Go\nDevOps: Docker, AWS, CI/CD',
-    'contact': 'Email: stackflutter@gmail.com\nGitHub: github.com/stackflutter',
-    'experience': 'Lead Mobile Engineer @ FinTech Unicorn (2023-Present)\nSenior iOS Developer @ HealthCare Startup (2020-2023)',
+    'whoami': 'Staff Mobile Engineer with 10+ years shipping production apps across iOS, Android, Flutter, KMP, and React Native.',
+    'skills': 'Native: Swift, Kotlin, SwiftUI, Jetpack Compose\nCross-Platform: Flutter, KMP, React Native\nTooling: CI/CD, Fastlane, Firebase, Datadog',
+    'contact': 'Email: kapilmhr016@gmail.com\nGitHub: github.com/kapilmhr\nLinkedIn: linkedin.com/in/kapil-maharjan',
+    'experience': 'Staff Mobile Engineer @ Current (2023-Present)\nSenior Mobile Engineer @ Enterprise (2020-2023)\nMobile Engineer @ Scale-up (2016-2020)',
     'clear': 'CLEAR'
   };
 

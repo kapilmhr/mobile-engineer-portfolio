@@ -43,7 +43,7 @@ export default function ContactFooter() {
   const name = 'Kapil Maharjan';
   const role = 'Staff Mobile Engineer';
   const location = 'Sydney, Australia · UTC+10';
-  const email = 'stackflutter@gmail.com';
+  const email = 'kapilmhr016@gmail.com';
   const availability = 'Available · Q3 2026';
   const brandInitials = 'KM';
   const yearsExp = '10+ yrs';
