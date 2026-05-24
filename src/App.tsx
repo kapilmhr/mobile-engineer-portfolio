@@ -61,15 +61,11 @@ export default function App() {
       <main className="relative z-10">
         <HeroSection />
         <AboutSection />
-        {/* <TechMarquee /> */}
         <ImpactMetricsSection />
-        {/* <EngineeringPrinciplesSection /> */}
         <HowItWorksSection />
         <SystemArchitectureSection />
         <EngineeringDeepDivesSection />
         <EngineeringSolutionsSection />
-        {/* <WorkSection /> */}
-        {/* <InteractiveTerminal /> */}
         <ThoughtLeadershipSection />
         <OpenSourceSection />
       </main>
@@ -254,7 +250,7 @@ function HeroSection() {
 
         {/* Right: image only */}
         <motion.img
-          src="kapil_avatar.png"
+          src="/kapil_avatar.png"
           alt="Kapil — Staff Mobile Engineer"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -296,7 +292,7 @@ function HeroSection() {
           <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
           <div className="flex items-center gap-1.5"><Timer size={11} /> 10+ years production mobile</div>
           <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
-          <div className="flex items-center gap-1.5"><MapPin size={11} /> Sydney, Australia · UTC+11</div>
+          <div className="flex items-center gap-1.5"><MapPin size={11} /> Sydney, Australia · UTC+10</div>
           <div className="flex items-center gap-1.5 ml-auto">
             <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
             Open to staff / principal roles
@@ -798,13 +794,15 @@ function MobileMockup({ children, title }: { children: ReactNode, title: string 
 
 const MockMapBackground = () => (
   <div className="absolute inset-0 pointer-events-none">
-    <img 
-      src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=600&auto=format&fit=crop" 
-      alt="Map background" 
-      className="w-full h-full object-cover grayscale invert opacity-40 contrast-125"
-      referrerPolicy="no-referrer"
+    <div 
+      className="w-full h-full opacity-40"
+      style={{
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+        backgroundSize: '20px 20px',
+        backgroundColor: '#1a1a2e'
+      }}
     />
-    <div className="absolute inset-0 bg-zinc-950/50 mix-blend-multiply" />
+    <div className="absolute inset-0 bg-zinc-950/50" />
     <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950/80" />
   </div>
 );
@@ -2194,8 +2192,7 @@ function OfflineSyncDiagram() {
           <text x="780" y="95" textAnchor="middle" fill="#c4b5fd" fontSize="10" className="font-mono-jb">CRDT merge logic</text>
           <text x="780" y="110" textAnchor="middle" fill="#c4b5fd" fontSize="10" className="font-mono-jb">vector clocks</text>
           <rect x="690" y="50" width="180" height="70" rx="10" fill="none" stroke="#7c3aed" strokeWidth="2">
-            <animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite" />
-            <animate attributeName="transform" type="scale" values="1;1.05" dur="2s" repeatCount="indefinite" transformOrigin="780 85" />
+            <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite" />
           </rect>
 
           <rect x="690" y="280" width="180" height="70" rx="10" fill="#0d0f14" stroke="#b91c1c" strokeWidth="2" />
@@ -3437,11 +3434,9 @@ function StreamingWidget() {
     <div className="absolute inset-0 bg-zinc-950 flex flex-col overflow-hidden">
       {/* Hero Video Placeholder */}
       <div className="relative h-[55%] w-full bg-zinc-900 shrink-0">
-        <img 
-          src="https://picsum.photos/seed/scifi/800/600" 
-          className="w-full h-full object-cover opacity-60"
-          alt="Hero"
-          referrerPolicy="no-referrer"
+        <div 
+          className="w-full h-full opacity-60"
+          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
         
@@ -3468,9 +3463,9 @@ function StreamingWidget() {
         <div>
           <div className="text-white font-bold text-sm mb-3">Trending Now</div>
           <div className="flex gap-3 overflow-hidden">
-            {[1,2,3,4].map(i => (
+            {[['#4a1942','#6a0572'], ['#1a237e','#283593'], ['#004d40','#00695c'], ['#bf360c','#d84315']].map((colors, i) => (
               <div key={i} className="w-24 h-36 bg-zinc-800 rounded-md shrink-0 relative overflow-hidden">
-                <img src={`https://picsum.photos/seed/movie${i}/200/300`} className="w-full h-full object-cover opacity-60" alt="thumbnail" referrerPolicy="no-referrer" />
+                <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})` }} />
               </div>
             ))}
           </div>
