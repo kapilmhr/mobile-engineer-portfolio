@@ -1569,9 +1569,9 @@ export function HowItWorksSection() {
                 <text x="20" y="330" className="fill-emerald-500/50 font-mono text-[10px] font-bold">DEVICE RUNTIME</text>
 
                 {/* Edges */}
-                {diagramData[activeTab].edges.map((edge, i) => {
-                  const fromNode = diagramData[activeTab].nodes.find(n => n.id === edge.from);
-                  const toNode = diagramData[activeTab].nodes.find(n => n.id === edge.to);
+                {diagramData[activeTab as TabId].edges.map((edge, i) => {
+                  const fromNode = diagramData[activeTab as TabId].nodes.find(n => n.id === edge.from);
+                  const toNode = diagramData[activeTab as TabId].nodes.find(n => n.id === edge.to);
                   if (!fromNode || !toNode) return null;
 
                   const startX = fromNode.x + fromNode.w / 2;
@@ -1635,7 +1635,7 @@ export function HowItWorksSection() {
                 })}
 
                 {/* Nodes */}
-                {diagramData[activeTab].nodes.map((node) => {
+                {diagramData[activeTab as TabId].nodes.map((node) => {
                   const isActive = activeBox === node.id;
                   
                   return (
