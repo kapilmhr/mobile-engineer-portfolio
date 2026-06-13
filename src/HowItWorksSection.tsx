@@ -1476,6 +1476,14 @@ export function HowItWorksSection() {
     { id: 'KMP', label: 'KMP', lang: 'Kotlin' }
   ];
 
+  const tabAccentColorById: Record<TabId, string> = {
+    'iOS': '#a78bfa',
+    'Android': '#4ade80',
+    'Flutter': '#22d3ee',
+    'React Native': '#f472b6',
+    'KMP': '#60a5fa'
+  };
+
   const metricsData: Record<string, any> = {
     'iOS': { build: '12s', cold: '300ms', perf: '120fps', hot: 'N/A', share: '0%', size: '15MB' },
     'Android': { build: '18s', cold: '450ms', perf: '120fps', hot: 'N/A', share: '0%', size: '12MB' },
@@ -1522,6 +1530,14 @@ export function HowItWorksSection() {
                   : 'bg-transparent border-white/5 text-zinc-500 hover:text-zinc-300 hover:border-white/10'
               }`}
             >
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  backgroundColor: tabAccentColorById[tab.id],
+                  opacity: activeTab === tab.id ? 1 : 0.7,
+                  boxShadow: activeTab === tab.id ? `0 0 8px ${tabAccentColorById[tab.id]}` : 'none'
+                }}
+              />
               <span className="font-semibold text-sm">{tab.label}</span>
               <span className="font-mono text-[10px] opacity-60 px-1.5 py-0.5 rounded bg-black/20">
                 {tab.lang}
