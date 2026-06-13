@@ -60,7 +60,7 @@ export default function App() {
 
       <main className="relative z-10">
         <HeroSection />
-        <AboutSection />
+        {/* <AboutSection /> */}
         <ImpactMetricsSection />
         <HowItWorksSection />
         <SystemArchitectureSection />
@@ -84,7 +84,7 @@ function FloatingOrbs() {
         style={{
           top: '-15%', left: '-10%',
           width: '65vw', height: '65vw', maxWidth: 750, maxHeight: 750,
-          background: 'radial-gradient(circle, rgba(96,165,250,0.13) 0%, transparent 70%)',
+          background: 'var(--hero-orb-gradient-lg)',
           filter: 'blur(70px)',
         }}
       />
@@ -95,22 +95,58 @@ function FloatingOrbs() {
         style={{
           top: '25%', right: '-12%',
           width: '55vw', height: '55vw', maxWidth: 650, maxHeight: 650,
-          background: 'radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)',
+          background: 'var(--hero-orb-gradient-sm)',
           filter: 'blur(70px)',
         }}
       />
-      <motion.div
-        animate={{ x: [0, 40, -60, 0], y: [0, -35, 70, 0], scale: [1, 1.08, 0.92, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 10 }}
-        className="absolute rounded-full"
+    </div>
+  );
+}
+
+function hexToRgba(hex: string, alpha: number) {
+  const normalized = hex.replace('#', '');
+  const safe = normalized.length === 3
+    ? normalized.split('').map((c) => c + c).join('')
+    : normalized;
+  const int = Number.parseInt(safe, 16);
+  const r = (int >> 16) & 255;
+  const g = (int >> 8) & 255;
+  const b = int & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function TechPill({ label, color }: { label: string; color: string }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.span
+      variants={{
+        hidden: { opacity: 0, y: 8 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+      }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ y: -2 }}
+      className="inline-flex items-center gap-1.5 font-mono text-[10px] rounded-full px-3 py-1 tracking-[0.04em] cursor-default select-none"
+      style={{
+        color: hovered ? 'var(--hero-pill-text-hover)' : hexToRgba(color, 0.85),
+        background: hovered ? hexToRgba(color, 0.1) : hexToRgba(color, 0.05),
+        border: `1px solid ${hovered ? hexToRgba(color, 0.45) : hexToRgba(color, 0.25)}`,
+        boxShadow: hovered ? `0 0 18px ${hexToRgba(color, 0.2)}` : 'none',
+        transition: 'color 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+      }}
+    >
+      <span
+        className="w-1.5 h-1.5 rounded-full shrink-0"
         style={{
-          bottom: '-8%', left: '35%',
-          width: '45vw', height: '45vw', maxWidth: 550, maxHeight: 550,
-          background: 'radial-gradient(circle, rgba(244,114,182,0.07) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          background: color,
+          opacity: hovered ? 1 : 0.6,
+          boxShadow: hovered ? `0 0 6px ${color}` : 'none',
+          transition: 'opacity 0.25s ease, box-shadow 0.25s ease',
         }}
       />
-    </div>
+      {label}
+    </motion.span>
   );
 }
 
@@ -121,24 +157,28 @@ function HeroSection() {
   };
 
   const pills = [
-    { label: 'Swift',            color: '#f97316', bg: 'rgba(249,115,22,0.08)',  border: 'rgba(249,115,22,0.22)' },
-    { label: 'Kotlin',           color: '#4ade80', bg: 'rgba(74,222,128,0.08)',  border: 'rgba(74,222,128,0.22)' },
-    { label: 'Flutter / Dart',   color: '#54c5f8', bg: 'rgba(84,197,248,0.08)',  border: 'rgba(84,197,248,0.22)' },
-    { label: 'KMP',              color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  border: 'rgba(251,191,36,0.22)' },
-    { label: 'SwiftUI',          color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.22)' },
-    { label: 'Jetpack Compose',  color: '#a78bfa', bg: 'rgba(167,139,250,0.08)', border: 'rgba(167,139,250,0.22)' },
-    { label: 'React Native',     color: '#60a5fa', bg: 'rgba(96,165,250,0.08)',  border: 'rgba(96,165,250,0.22)' },
+    { label: 'iOS',            color: '#38bdf8' },
+    { label: 'Android',           color: '#a78bfa' },
+    { label: 'Flutter',   color: '#22d3ee' },
+    { label: 'KMP',              color: '#60a5fa' },
+    { label: 'SwiftUI',          color: '#f472b6' },
+    { label: 'Jetpack Compose',  color: '#4ade80' },
+    { label: 'React Native',     color: '#f59e0b' },
   ];
 
   const stats = [
-    { icon: TrendingUp, value: '1M+', label: 'users · largest app shipped',  color: '#4ade80' },
-    { icon: Timer,      value: '55%', label: 'TTI · crash · ANR gains',      color: '#fbbf24' },
-    { icon: Layers,     value: '7+',  label: 'migrations led · every stack', color: '#a78bfa' },
-    { icon: User,       value: '7',   label: 'senior engineers mentored',    color: '#f472b6' },
+    { icon: TrendingUp, value: '1M+', label: 'users · largest app shipped',   iconColor: '#4ade80', iconBg: 'rgba(74,222,128,0.10)',  iconBorder: 'rgba(74,222,128,0.22)'  },
+    { icon: Timer,      value: '55%', label: 'TTI · crash · ANR gains',       iconColor: '#60a5fa', iconBg: 'rgba(96,165,250,0.10)',  iconBorder: 'rgba(96,165,250,0.22)'  },
+    { icon: Layers,     value: '7+',  label: 'migrations led · every stack',  iconColor: '#fbbf24', iconBg: 'rgba(251,191,36,0.10)',  iconBorder: 'rgba(251,191,36,0.22)'  },
+    { icon: User,       value: '7',   label: 'senior engineers mentored',     iconColor: '#a78bfa', iconBg: 'rgba(167,139,250,0.10)', iconBorder: 'rgba(167,139,250,0.22)' },
   ];
 
   return (
-    <section id="hero" className="relative min-h-screen bg-[#080a0f] overflow-hidden flex flex-col">
+    <section
+      id="hero"
+      className="relative min-h-screen overflow-hidden flex flex-col"
+      style={{ backgroundColor: 'var(--hero-bg)' }}
+    >
       {/* Background layers */}
       <div className="absolute inset-0 hero-mesh" />
       <div className="absolute inset-0 dot-grid" style={{ opacity: 0.45 }} />
@@ -156,11 +196,14 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="inline-flex items-center gap-2 mb-7 px-4 py-2 rounded-full"
-            style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.22)', backdropFilter: 'blur(12px)' }}
+            style={{ background: 'var(--hero-badge-bg)', border: '1px solid var(--hero-badge-border)', backdropFilter: 'blur(12px)' }}
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
-            <span className="font-mono text-[11px] text-[#4ade80] tracking-[0.05em]">
-              Available · Staff / Principal roles · Sydney AU
+            <div
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ backgroundColor: 'var(--hero-accent-success)', animation: 'pulse-dot 2s ease-in-out infinite' }}
+            />
+            <span className="font-mono text-[11px] tracking-[0.05em]" style={{ color: 'var(--hero-accent-success)' }}>
+              Staff / Principal Engineer · Sydney AU
             </span>
           </motion.div>
 
@@ -169,9 +212,10 @@ function HeroSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="font-mono text-[11px] text-[#334155] tracking-[0.18em] uppercase mb-5"
+            className="font-mono text-[11px] tracking-[0.18em] uppercase mb-5"
+            style={{ color: 'var(--hero-text-secondary)' }}
           >
-            Staff Mobile Engineer · 10+ years production
+            Staff Mobile Engineer · 12+ years production
           </motion.p>
 
           {/* Hero headline */}
@@ -179,8 +223,8 @@ function HeroSection() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-            className="font-black text-[#f1f5f9] mb-6"
-            style={{ fontSize: 'clamp(36px, 5vw, 72px)', lineHeight: 1.03, letterSpacing: '-0.04em' }}
+            className="font-black mb-6"
+            style={{ color: 'var(--hero-text-primary)', fontSize: 'clamp(36px, 5vw, 72px)', lineHeight: 1.03, letterSpacing: '-0.04em' }}
           >
             I've shipped on<br />
             <span className="shimmer-text">every major</span><br />
@@ -192,30 +236,28 @@ function HeroSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[#64748b] max-w-lg text-[15px] leading-relaxed mb-8"
+            className="max-w-lg text-[15px] leading-relaxed mb-8"
+            style={{ color: 'var(--hero-text-tertiary)' }}
           >
             Swift · Kotlin · Dart · KMP · React Native —{' '}
             not as a generalist, but someone who has led{' '}
-            <span className="text-[#94a3b8] font-medium">7 production migrations</span>{' '}
+            <span className="font-medium" style={{ color: 'var(--hero-text-secondary)' }}>7 production migrations</span>{' '}
             and shipped to{' '}
-            <span className="text-[#94a3b8] font-medium">1M+ users</span>.
+            <span className="font-medium" style={{ color: 'var(--hero-text-secondary)' }}>1M+ users</span>.
           </motion.p>
 
           {/* Tech pills */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.05, delayChildren: 0.3 } },
+            }}
             className="flex flex-wrap gap-2 mb-10"
           >
             {pills.map(pill => (
-              <span
-                key={pill.label}
-                className="font-mono text-[10px] rounded-full px-3 py-1 tracking-[0.04em]"
-                style={{ color: pill.color, background: pill.bg, border: `1px solid ${pill.border}` }}
-              >
-                {pill.label}
-              </span>
+              <TechPill key={pill.label} label={pill.label} color={pill.color} />
             ))}
           </motion.div>
 
@@ -231,16 +273,21 @@ function HeroSection() {
               whileTap={{ scale: 0.97 }}
               onClick={() => scrollToSection('architecture')}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white"
-              style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', boxShadow: '0 0 28px rgba(96,165,250,0.28)', transition: 'box-shadow 0.2s ease' }}
+              style={{ background: 'var(--hero-cta-gradient)', boxShadow: 'var(--hero-cta-glow)', transition: 'box-shadow 0.2s ease' }}
             >
               <ArrowRight size={15} /> See the architecture
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.03, color: 'var(--hero-text-primary)' }}
               whileTap={{ scale: 0.98 }}
               onClick={() => scrollToSection('problems')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-[#94a3b8] transition-colors duration-200 hover:text-[#f1f5f9]"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-colors duration-200"
+              style={{
+                color: 'var(--hero-text-secondary)',
+                background: 'var(--hero-button-secondary-bg)',
+                border: '1px solid var(--hero-button-secondary-border)',
+                backdropFilter: 'blur(12px)',
+              }}
             >
               <Terminal size={15} /> Engineering deep dives
             </motion.button>
@@ -266,36 +313,56 @@ function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10"
-        style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+        style={{
+          borderTop: '1px solid var(--hero-divider)',
+          background: 'rgba(8,10,15,0.72)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+        }}
       >
-        <div className="max-w-4xl mx-auto px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="max-w-4xl mx-auto px-6 pt-5 pb-3 grid grid-cols-2 md:grid-cols-4 gap-3">
           {stats.map((stat, i) => (
             <motion.div
               key={i}
               whileHover={{ y: -2, transition: { duration: 0.15 } }}
               className="glass-2 rounded-xl p-4 flex items-center gap-3 cursor-default"
             >
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0" style={{ background: `${stat.color}14`, border: `1px solid ${stat.color}28` }}>
-                <stat.icon size={15} style={{ color: stat.color }} />
+              <div
+                className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0"
+                style={{ background: stat.iconBg, border: `1px solid ${stat.iconBorder}` }}
+              >
+                <stat.icon size={15} style={{ color: stat.iconColor }} />
               </div>
               <div>
-                <div className="font-black text-[17px] leading-none mb-0.5" style={{ color: stat.color }}>{stat.value}</div>
-                <div className="font-mono text-[9px] text-[#475569] leading-tight">{stat.label}</div>
+                <div className="font-black text-[17px] leading-none mb-1" style={{ color: 'var(--hero-text-primary)' }}>{stat.value}</div>
+                <div className="font-mono text-[10px] leading-tight" style={{ color: 'var(--hero-text-secondary)' }}>{stat.label}</div>
               </div>
             </motion.div>
           ))}
         </div>
 
         {/* Metadata row */}
-        <div className="max-w-4xl mx-auto px-6 pb-5 flex flex-wrap items-center gap-5 font-mono text-[10px] text-[#2d3f55]">
-          <div className="flex items-center gap-1.5"><Github size={11} /> 50+ repos</div>
-          <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
-          <div className="flex items-center gap-1.5"><Timer size={11} /> 10+ years production mobile</div>
-          <div className="w-1 h-1 rounded-full bg-[#1e2a3a]" />
-          <div className="flex items-center gap-1.5"><MapPin size={11} /> Sydney, Australia · UTC+10</div>
-          <div className="flex items-center gap-1.5 ml-auto">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
-            Open to staff / principal roles
+        <div
+          className="max-w-4xl mx-auto px-6 pb-5 flex flex-wrap items-center gap-4 font-mono text-[11px]"
+          style={{
+            color: 'var(--hero-text-secondary)',
+            borderTop: '1px solid var(--hero-divider)',
+            paddingTop: '12px',
+          }}
+        >
+          <div className="flex items-center gap-1.5">
+            <Github size={12} style={{ color: '#60a5fa' }} /> 50+ repos
+          </div>
+          <div className="w-1 h-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
+          <div className="flex items-center gap-1.5">
+            <Timer size={12} style={{ color: '#fbbf24' }} /> 12+ years production mobile
+          </div>
+          <div className="w-1 h-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }} />
+          <div className="flex items-center gap-1.5">
+            <MapPin size={12} style={{ color: '#22d3ee' }} /> Sydney, Australia · UTC+10
+          </div>
+          <div className="flex items-center gap-1.5 ml-auto" style={{ color: 'var(--hero-text-secondary)' }}>
+            iOS · Android · Flutter · KMP · RN
           </div>
         </div>
       </motion.div>
@@ -477,6 +544,20 @@ function ImpactMetricsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  const techPillClassByLabel: Record<string, string> = {
+    "React Native": "text-[#fbbf24] bg-[#f59e0b]/14 border-[#f59e0b]/35",
+    "Native iOS + Android": "text-[#c4b5fd] bg-[#a78bfa]/14 border-[#a78bfa]/35",
+    "Flutter": "text-[#67e8f9] bg-[#22d3ee]/14 border-[#22d3ee]/35",
+    "Legacy iOS (ObjC/UIKit)": "text-[#cbd5e1] bg-[#94a3b8]/14 border-[#94a3b8]/35",
+    "SwiftUI": "text-[#f9a8d4] bg-[#f472b6]/14 border-[#f472b6]/35",
+    "Legacy Android (Java)": "text-[#cbd5e1] bg-[#94a3b8]/14 border-[#94a3b8]/35",
+    "Jetpack Compose": "text-[#86efac] bg-[#4ade80]/14 border-[#4ade80]/35",
+    "KMP shared logic": "text-[#93c5fd] bg-[#60a5fa]/14 border-[#60a5fa]/35"
+  };
+
+  const getTechPillClass = (label: string) =>
+    techPillClassByLabel[label] ?? "text-[#cbd5e1] bg-[#334155]/20 border-[#475569]/40";
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -510,20 +591,26 @@ function ImpactMetricsSection() {
   }, [hasAnimated]);
 
   const migrations = [
-    { from: "React Native", to: "Flutter", note: "cross-platform consolidation", fromColor: "text-[#60a5fa] bg-[#60a5fa]/10 border-[#60a5fa]/30", toColor: "text-[#54c5f8] bg-[#54c5f8]/10 border-[#54c5f8]/30" },
-    { from: "React Native", to: "Native iOS + Android", note: "performance-critical rewrite", fromColor: "text-[#60a5fa] bg-[#60a5fa]/10 border-[#60a5fa]/30", toColor: "text-[#a78bfa] bg-[#a78bfa]/10 border-[#a78bfa]/30" },
-    { from: "Native iOS + Android", to: "Flutter", note: "single codebase, full parity", fromColor: "text-[#a78bfa] bg-[#a78bfa]/10 border-[#a78bfa]/30", toColor: "text-[#54c5f8] bg-[#54c5f8]/10 border-[#54c5f8]/30" },
-    { from: "Legacy iOS (ObjC/UIKit)", to: "SwiftUI", note: "incremental, zero downtime", fromColor: "text-[#94a3b8] bg-[#94a3b8]/10 border-[#94a3b8]/30", toColor: "text-[#f472b6] bg-[#f472b6]/10 border-[#f472b6]/30" },
-    { from: "Legacy Android (Java)", to: "Jetpack Compose", note: "module-by-module migration", fromColor: "text-[#94a3b8] bg-[#94a3b8]/10 border-[#94a3b8]/30", toColor: "text-[#4ade80] bg-[#4ade80]/10 border-[#4ade80]/30" },
-    { from: "Native iOS + Android", to: "KMP shared logic", note: "business layer extraction", fromColor: "text-[#a78bfa] bg-[#a78bfa]/10 border-[#a78bfa]/30", toColor: "text-[#fbbf24] bg-[#fbbf24]/10 border-[#fbbf24]/30" },
-    { from: "Native iOS + Android", to: "React Native", note: "team velocity optimisation", fromColor: "text-[#a78bfa] bg-[#a78bfa]/10 border-[#a78bfa]/30", toColor: "text-[#60a5fa] bg-[#60a5fa]/10 border-[#60a5fa]/30" }
+    { from: "React Native", to: "Flutter", note: "cross-platform consolidation" },
+    { from: "React Native", to: "Native iOS + Android", note: "performance-critical rewrite" },
+    { from: "Native iOS + Android", to: "Flutter", note: "single codebase, full parity" },
+    { from: "Legacy iOS (ObjC/UIKit)", to: "SwiftUI", note: "incremental, zero downtime" },
+    { from: "Legacy Android (Java)", to: "Jetpack Compose", note: "module-by-module migration" },
+    { from: "Native iOS + Android", to: "KMP shared logic", note: "business layer extraction" },
+    { from: "Native iOS + Android", to: "React Native", note: "team velocity optimisation" }
   ];
 
   return (
-    <section id="stats" ref={sectionRef} className="py-24 px-6 md:px-12 lg:px-24 bg-zinc-950">
+    <section id="stats" ref={sectionRef} className="pt-16 px-6 md:px-12 lg:px-24 bg-zinc-950">
       <div className="max-w-[960px] mx-auto">
-        <div className="font-mono text-[11px] text-zinc-500 tracking-[0.1em] mb-8">
-          // by the numbers — 10+ years shipping native iOS, Android & cross-platform
+        <div className="font-mono text-[11px] uppercase text-[#93c5fd] tracking-[0.1em] mb-3">
+          Impact metrics
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black tracking-[-0.02em] text-zinc-100 mb-3">
+          Results That Scaled In Production
+        </h2>
+        <div className="text-sm md:text-[15px] text-zinc-300 leading-relaxed mb-8 max-w-2xl">
+          12+ years shipping native iOS, Android, and cross-platform products, with measurable gains in performance, reliability, and delivery speed, including 7 end-to-end platform migrations.
         </div>
 
         {/* Block 1 — Stat cards */}
@@ -531,7 +618,7 @@ function ImpactMetricsSection() {
           {/* Card 1 */}
           {[
             { value: counts.users >= 1000 ? `${(counts.users/1000).toFixed(1)}M+` : String(counts.users), label: 'Users Served', desc: 'Largest production app shipped across iOS & Android', color: '#4ade80', delay: 0.05 },
-            { value: `${counts.perf}%`, label: 'Perf Improvement', desc: 'TTI, crash rate, ANR & app size — across multiple apps', color: '#f59e0b', delay: 0.15 },
+            { value: `${counts.perf}%`, label: 'Perf Improvement', desc: 'TTI, crash rate, ANR & app size across multiple apps', color: '#f59e0b', delay: 0.15 },
             { value: String(counts.eng), label: 'Engineers Mentored', desc: 'iOS, Android & Flutter engineers across cross-functional teams', color: '#a78bfa', delay: 0.25 },
             { value: `${counts.mig}+`, label: 'Migrations Led', desc: 'End-to-end platform rewrites across every major mobile stack', color: '#f472b6', delay: 0.35 },
           ].map((card, i) => (
@@ -548,16 +635,16 @@ function ImpactMetricsSection() {
               <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300" style={{ background: card.color }} />
               <div className="text-[40px] font-black leading-none mb-2" style={{ color: card.color }}>{card.value}</div>
               <div className="font-mono text-[10px] uppercase tracking-[0.1em] mb-3" style={{ color: `${card.color}99` }}>{card.label}</div>
-              <div className="text-[12px] text-zinc-400 leading-relaxed">{card.desc}</div>
+              <div className="text-[12px] text-zinc-300 leading-relaxed">{card.desc}</div>
             </motion.div>
           ))}
         </div>
 
         {/* Block 2 — Migration track record strip */}
-        <div className="bg-[#161b27] border border-[#1e2a3a] rounded-xl p-5 mb-4">
+        <div className="bg-[#111827] border border-[#334155] rounded-xl p-5 mb-4">
           <div className="flex justify-between items-center mb-6">
-            <div className="font-mono text-[11px] uppercase text-zinc-500 tracking-[0.08em]">Migration track record</div>
-            <div className="font-mono text-[11px] text-[#4ade80] bg-[#4ade80]/10 border border-[#4ade80]/20 px-3 py-1 rounded-full">
+            <div className="font-mono text-[11px] uppercase text-[#cbd5e1] tracking-[0.08em]">Migration track record</div>
+            <div className="font-mono text-[11px] text-[#86efac] bg-[#4ade80]/15 border border-[#4ade80]/35 px-3 py-1 rounded-full">
               7 end-to-end rewrites
             </div>
           </div>
@@ -565,16 +652,16 @@ function ImpactMetricsSection() {
           <div className="flex flex-col gap-3">
             {migrations.map((mig, i) => (
               <div key={i} className="flex items-center gap-2.5 overflow-hidden">
-                <div className={`font-mono text-[11px] px-2.5 py-1 rounded-md border whitespace-nowrap ${mig.fromColor}`}>
+                <div className={`font-mono text-[11px] px-2.5 py-1 rounded-md border whitespace-nowrap ${getTechPillClass(mig.from)}`}>
                   {mig.from}
                 </div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#334155" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                   <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
-                <div className={`font-mono text-[11px] px-2.5 py-1 rounded-md border whitespace-nowrap ${mig.toColor}`}>
+                <div className={`font-mono text-[11px] px-2.5 py-1 rounded-md border whitespace-nowrap ${getTechPillClass(mig.to)}`}>
                   {mig.to}
                 </div>
-                <div className="font-mono text-[11px] text-[#475569] ml-auto hidden sm:block truncate mig-note">
+                <div className="font-mono text-[11px] text-[#94a3b8] ml-auto hidden sm:block truncate mig-note">
                   {mig.note}
                 </div>
               </div>
@@ -583,8 +670,8 @@ function ImpactMetricsSection() {
         </div>
 
         {/* Block 3 — Platform footnote */}
-        <div className="text-center font-mono text-[11px] text-[#334155] pt-1">
-          iOS · Android · Flutter · KMP · React Native · SwiftUI · Jetpack Compose — shipped across all
+        <div className="text-center font-mono text-[11px] text-[#94a3b8] pt-1">
+          iOS · Android · Flutter · KMP · React Native · SwiftUI · Jetpack Compose → shipped across all
         </div>
       </div>
     </section>
