@@ -27,7 +27,8 @@ function CopyEmail({ email }: { email: string }) {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <button onClick={copy} className="group flex items-center space-x-2 font-mono text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors">
+    <button onClick={copy} className="group flex items-center space-x-2 font-mono text-sm text-[var(--foreground)] transition-colors">
+      <Mail className="w-3.5 h-3.5 text-[var(--primary)] shrink-0" />
       <span>{email}</span>
       {copied
         ? <Check className="w-3.5 h-3.5 text-[var(--primary)] shrink-0" />
@@ -44,9 +45,9 @@ export default function ContactFooter() {
   const role = 'Staff Mobile Engineer';
   const location = 'Sydney, Australia · UTC+10';
   const email = 'kapilmhr016@gmail.com';
-  const availability = 'Available · Q3 2026';
+  const availability = 'Available for strategic collaborations';
   const brandInitials = 'KM';
-  const yearsExp = '10+ yrs';
+  const yearsExp = '12+ yrs';
 
   const links = [
     { label: 'GitHub', href: 'https://github.com/kapilmhr', icon: Github },
@@ -57,24 +58,36 @@ export default function ContactFooter() {
   const stack = ['Swift · SwiftUI', 'Kotlin · Compose', 'Flutter · Dart', 'KMP · Ktor', 'React Native'];
 
   return (
-    <footer id="contact" className="border-t border-[var(--border)] bg-[var(--background)]">
+    <footer id="contact" className="border-t border-[var(--border)] bg-transparent">
 
       {/* ── CTA Band ── */}
-      <div className="border-b border-[var(--border)] bg-[var(--card)]">
+      <div className="border-b border-[var(--border)] bg-transparent">
         <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Left — Headline */}
           <div>
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
-              <span className="text-xs font-mono text-[var(--primary)] uppercase tracking-widest">{availability}</span>
+            <div
+              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full"
+              style={{
+                background: 'var(--hero-badge-bg)',
+                border: '1px solid var(--hero-badge-border)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <div
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: 'var(--hero-accent-success)', animation: 'pulse-dot 2s ease-in-out infinite' }}
+              />
+              <span className="font-mono text-[11px] tracking-[0.05em]" style={{ color: 'var(--hero-accent-success)' }}>
+                {availability}
+              </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter leading-none text-[var(--foreground)] mb-4">
-              Let's ship<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-blue-400">something great.</span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none text-[var(--foreground)] mb-4">
+              Let's ship mobile products<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-blue-400">that scale.</span>
             </h2>
-            <p className="text-[var(--muted-foreground)] text-base max-w-md leading-relaxed mt-5">
-              Staff-level mobile engineering for teams building at scale. If you're migrating stacks, optimising performance, or architecting from scratch — let's talk.
+            <p className="text-[var(--foreground)]/82 text-base max-w-md leading-relaxed mt-5">
+              Staff-level mobile engineering for teams building at scale. Whether you are migrating stacks, optimizing performance, or architecting from scratch, let's talk.
             </p>
           </div>
 
@@ -121,11 +134,17 @@ export default function ContactFooter() {
                 {/* Social link pills */}
                 <div className="flex items-center space-x-3 pt-2 border-t border-[var(--border)]">
                   {links.map(({ label, href, icon: Icon }) => (
-                    <a key={label} href={href} target="_blank" rel="noreferrer"
-                      className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] text-[var(--muted-foreground)] text-xs font-mono transition-colors group">
-                      <Icon className="w-3 h-3" />
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Open ${label}`}
+                      className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border)] bg-white/[0.02] text-[var(--foreground)]/85 text-xs font-mono transition-[transform,border-color,background-color,color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-[var(--primary)]/70 hover:bg-blue-500/10 hover:text-[var(--foreground)] hover:shadow-[0_0_18px_rgba(59,130,246,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(59,130,246,0.45)]"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors" />
                       <span>{label}</span>
-                      <ArrowUpRight className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ArrowUpRight className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" />
                     </a>
                   ))}
                 </div>
@@ -133,8 +152,11 @@ export default function ContactFooter() {
             </div>
 
             {/* Primary CTA button */}
-            <a href={`mailto:${email}`}
-              className="w-full py-3.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold rounded-xl hover:bg-[var(--primary)]/90 transition-all text-sm text-center shadow-lg shadow-[var(--primary)]/20 hover:shadow-[var(--primary)]/30 hover:-translate-y-0.5 transform duration-200 flex items-center justify-center space-x-2">
+            <a
+              href={`mailto:${email}`}
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              style={{ background: 'var(--hero-cta-gradient)', boxShadow: 'var(--hero-cta-glow)', transition: 'box-shadow 0.2s ease' }}
+            >
               <Mail className="w-4 h-4" />
               <span>Start a Conversation</span>
             </a>
@@ -147,29 +169,38 @@ export default function ContactFooter() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
 
           {/* Brand */}
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-3 space-y-1 md:space-y-0">
             <div className="text-2xl font-bold font-mono tracking-tighter text-[var(--foreground)]">
               {brandInitials}<span className="text-[var(--primary)]">.</span>
             </div>
-            <span className="text-[10px] font-mono text-[var(--muted-foreground)] uppercase tracking-widest">{role} · {yearsExp}</span>
+            <span className="hidden md:inline text-[var(--foreground)]/45 text-[10px]">•</span>
+            <span className="text-[10px] font-mono text-[var(--foreground)]/80 uppercase tracking-widest">{role} · {yearsExp}</span>
           </div>
 
           {/* Stack strip (hidden on small screens) */}
           <div className="hidden lg:flex items-center space-x-2">
             {stack.map((s, i) => (
               <React.Fragment key={s}>
-                <span className="text-[10px] font-mono text-[var(--muted-foreground)]">{s}</span>
-                {i < stack.length - 1 && <span className="text-[var(--border)] text-[10px]">·</span>}
+                <span className="text-[10px] font-mono text-[var(--foreground)]/75">{s}</span>
+                {i < stack.length - 1 && <span className="text-[var(--foreground)]/35 text-[10px]">·</span>}
               </React.Fragment>
             ))}
           </div>
 
           {/* Copyright + links */}
-          <div className="flex items-center space-x-4 text-[11px] font-mono text-[var(--muted-foreground)]">
+          <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-[var(--foreground)]/72">
             <span>© {new Date().getFullYear()} {name}</span>
-            <span className="text-[var(--border)]">·</span>
+            <span className="text-[var(--foreground)]/35">·</span>
             {links.map(({ label, href }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" className="hover:text-[var(--foreground)] transition-colors">{label}</a>
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[var(--foreground)]/92 hover:text-[var(--primary)] focus-visible:text-[var(--primary)] focus-visible:outline-none transition-colors"
+              >
+                {label}
+              </a>
             ))}
           </div>
         </div>
