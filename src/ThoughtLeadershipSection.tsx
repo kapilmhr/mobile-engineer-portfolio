@@ -42,7 +42,7 @@ export function ThoughtLeadershipSection() {
   ];
 
   return (
-    <section id="thought-leadership" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 bg-zinc-950">
+    <section id="thought-leadership" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 bg-zinc-950 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

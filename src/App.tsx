@@ -5,7 +5,7 @@
 
 import { motion, useScroll, AnimatePresence } from 'motion/react';
 import { useRef, useEffect, useState, ReactNode, FormEvent } from 'react';
-import { ArrowUpRight, Code2, Smartphone, Terminal, Cpu, Layers, Github, Linkedin, Mail, MapPin, Navigation, Shield, Lock, TrendingUp, Plane, Ticket, QrCode, CreditCard, ArrowRight, Heart, Play, Plus, Star, GitFork, ExternalLink, Database, Server, Activity, Zap, CheckCircle, Timer, Wifi, LineChart, User } from 'lucide-react';
+import { ArrowUpRight, Code2, Smartphone, Terminal, Cpu, Layers, Github, Linkedin, Mail, MapPin, Navigation, Shield, Lock, TrendingUp, Plane, Ticket, QrCode, CreditCard, ArrowRight, Heart, Play, Plus, Database, Server, Activity, Zap, CheckCircle, Timer, Wifi, LineChart, User } from 'lucide-react';
 import { siApple, siAndroid, siSwift, siKotlin, siReact, siFlutter, siBluetooth } from 'simple-icons';
 
 function SimpleIcon({ icon, size = 24, className = "" }: { icon: any, size?: number, className?: string }) {
@@ -30,6 +30,7 @@ import { EngineeringSolutionsSection } from './EngineeringSolutionsSection';
 import { SystemArchitectureSection } from './SystemArchitectureSection';
 import { EngineeringDeepDivesSection } from './EngineeringDeepDivesSection';
 import { ThoughtLeadershipSection } from './ThoughtLeadershipSection.tsx';
+import { OpenSourceSection } from './OpenSourceSection';
 import ContactFooter from './ContactFooter';
 
 export default function App() {
@@ -1408,98 +1409,6 @@ function InteractiveTerminal() {
           >
             clear
           </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function OpenSourceSection() {
-  const projects = [
-    {
-      name: "Hatch",
-      description: "A comprehensive developer tool aimed at improving mobile workflow and productivity. Resolves the architectural bottleneck of inconsistent local development environments across teams.",
-      url: "https://github.com/kapilmhr/hatch",
-      language: "Dart"
-    },
-    {
-      name: "Easy Folder Picker",
-      description: "A seamless and highly customizable folder picker utility. Solves the real-world problem of fragmented file system access and permissions across different mobile OS versions.",
-      url: "https://github.com/kapilmhr/Easy-Folder-Picker",
-      language: "Dart"
-    }
-  ];
-
-  return (
-    <section id="oss" className="py-24 px-6 md:px-12 lg:px-24 bg-zinc-900/30 border-y border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
-        >
-          <div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">Open Source Solutions</h2>
-            <p className="mt-4 text-zinc-400 font-mono text-sm max-w-2xl">
-              // architectural and real-world problem solutions built for the community
-            </p>
-          </div>
-          <a href="https://github.com/kapilmhr" target="_blank" rel="noreferrer" className="hidden md:flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm shrink-0">
-            View GitHub <ExternalLink size={16} />
-          </a>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="bg-black/40 p-8 rounded-3xl border border-white/10 hover:border-cyan-500/30 transition-colors group relative overflow-hidden flex flex-col"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors" />
-              
-              <div className="flex justify-between items-start mb-6 relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-cyan-500/30 transition-colors">
-                  <Github className="text-white/70 group-hover:text-cyan-400 transition-colors" size={24} />
-                </div>
-                <div className="flex gap-3 text-sm font-mono text-zinc-500">
-                  <div className="flex items-center gap-1"><Star size={14} /></div>
-                  <div className="flex items-center gap-1"><GitFork size={14} /></div>
-                </div>
-              </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-3 relative z-10 group-hover:text-cyan-400 transition-colors">
-                {project.name}
-              </h3>
-              <p className="text-zinc-400 leading-relaxed mb-8 relative z-10 flex-1">
-                {project.description}
-              </p>
-              
-              <div className="flex items-center justify-between relative z-10 mt-auto">
-                <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 text-zinc-300 border border-white/10">
-                  {project.language}
-                </span>
-                <a 
-                  href={project.url} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="flex items-center gap-2 text-sm font-bold text-white hover:text-cyan-400 transition-colors"
-                >
-                  Repository <ExternalLink size={16} />
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="mt-8 md:hidden flex justify-center">
-          <a href="https://github.com/kapilmhr" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm">
-            View GitHub <ExternalLink size={16} />
-          </a>
         </div>
       </div>
     </section>
