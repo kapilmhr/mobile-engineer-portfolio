@@ -53,7 +53,7 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-black text-white selection:bg-white/30">
+    <div ref={containerRef} className="relative bg-[var(--background)] text-white selection:bg-white/30">
       <div className="noise-bg" />
       
       {/* Custom Cursor Glow */}
