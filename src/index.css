@@ -265,4 +265,8 @@ body {
   .ep-principles-card {
     transition: opacity 0.2s ease;
   }
+  /* Inline keyframe animations (e.g. hero badge pulse dot) */
+  [style*="pulse-dot"] {
+    animation: none !important;
+  }
 }

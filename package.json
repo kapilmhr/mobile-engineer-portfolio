@@ -1,10 +1,16 @@
 {
   "name": "mobile-engineer-portfolio",
-  "description": "Staff Mobile Engineer portfolio — cinematic dark-mode SPA with interactive architecture diagrams and engineering deep-dives",
+  "description": "Kapil Maharjan — AI-assisted staff mobile engineer (Sydney, Australia). Portfolio: iOS, Android, Flutter, KMP & React Native.",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://github.com/kapilmhr/mobile-engineer-portfolio",
+  "homepage": "https://kapil.info.np/",
+  "author": "Kapil Maharjan <kapilmhr016@gmail.com> (https://kapil.info.np/)",
+  "keywords": [
+    "kapil maharjan", "mobile engineer", "ai-assisted mobile engineer",
+    "ios", "android", "flutter", "kotlin multiplatform", "kmp",
+    "react native", "swift", "kotlin", "mobile engineer sydney"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/kapilmhr/mobile-engineer-portfolio.git"

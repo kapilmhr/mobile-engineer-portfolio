@@ -186,7 +186,7 @@ function OfflineSyncDiagram() {
           {/* Line 3: MQ -> API Gateway */}
           <g opacity={isOnline ? 1 : 0} style={{ transition: 'opacity 0.3s' }}>
             <path d="M 410 200 L 480 200" className="flow-line solid" stroke="#15803d" markerEnd="url(#arrow-green)" />
-            <text x="445" y="190" fill="#4ade80" fontSize="10" className="font-mono-jb" textAnchor="middle">flush mutations</text>
+            <text x="445" y="160" fill="#4ade80" fontSize="10" className="font-mono-jb" textAnchor="middle">flush mutations</text>
           </g>
 
           {/* Blocked Line */}
@@ -202,13 +202,13 @@ function OfflineSyncDiagram() {
             <text x="630" y="110" fill="#c4b5fd" fontSize="10" className="font-mono-jb" textAnchor="middle">resolve conflicts</text>
 
             <path d="M 750 120 L 750 280" className="flow-line solid" stroke="#7c3aed" markerEnd="url(#arrow-purple)" />
-            <text x="760" y="200" fill="#c4b5fd" fontSize="10" className="font-mono-jb">write resolved state</text>
+            <text x="680" y="220" fill="#c4b5fd" fontSize="10" className="font-mono-jb">write resolved state</text>
 
             <path d="M 220 315 L 690 315" className="flow-line slow" stroke="#1d4ed8" markerEnd="url(#arrow-blue)" />
             <text x="450" y="305" fill="#93c5fd" fontSize="10" className="font-mono-jb" textAnchor="middle">schema mirrors (via Sync Engine)</text>
 
             <path d="M 810 280 L 810 120" className="flow-line solid reverse" stroke="#7c3aed" markerEnd="url(#arrow-purple)" />
-            <text x="820" y="200" fill="#c4b5fd" fontSize="10" className="font-mono-jb">ack</text>
+            <text x="820" y="180" fill="#c4b5fd" fontSize="10" className="font-mono-jb">ack</text>
           </g>
 
           {/* Nodes */}
@@ -498,7 +498,7 @@ function AuthSequenceDiagram() {
 
       {/* Header */}
       <div className="mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#f1f5f9]">Zero-Trust Auth Sequence (OAuth2 + PKCE)</h2>
+        <h3 className="text-2xl md:text-3xl font-bold text-[#f1f5f9]">Zero-Trust Auth Sequence (OAuth2 + PKCE)</h3>
         <p className="text-[#94a3b8] text-sm mt-2 font-mono">// Secure biometric login with hardware-backed keystore and token rotation</p>
       </div>
 
@@ -687,12 +687,12 @@ function AuthSequenceDiagram() {
               borderColor: steps[currentStep].color
             }}
           >
-            <h3 
+            <h4
               className="text-lg font-bold mb-4 transition-colors duration-300"
               style={{ color: steps[currentStep].color }}
             >
               {steps[currentStep].title}
-            </h3>
+            </h4>
             <p className="text-[#f1f5f9] leading-relaxed text-sm">
               {steps[currentStep].desc}
             </p>
@@ -838,9 +838,9 @@ function StartupPerformanceDiagram() {
             </svg>
             <span className="text-zinc-400 font-mono text-sm tracking-wider uppercase">Startup Critical Path</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">
             App Startup Critical Path
-          </h2>
+          </h3>
           <div className="text-zinc-400 text-sm mb-8 font-mono">
             // Optimizing Time-to-Interactive (TTI) by deferring non-critical tasks to background threads
           </div>
