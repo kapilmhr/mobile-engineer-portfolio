@@ -226,7 +226,11 @@ export function HeroSection() {
 
         <motion.img
           src="/kapil_avatar.png"
-          alt="Kapil — Staff Mobile Engineer"
+          alt="Kapil Maharjan — AI-assisted staff mobile engineer, Sydney"
+          width={300}
+          height={284}
+          fetchPriority="high"
+          decoding="async"
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
