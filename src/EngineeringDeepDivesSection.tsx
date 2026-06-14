@@ -186,7 +186,7 @@ function OfflineSyncDiagram() {
           {/* Line 3: MQ -> API Gateway */}
           <g opacity={isOnline ? 1 : 0} style={{ transition: 'opacity 0.3s' }}>
             <path d="M 410 200 L 480 200" className="flow-line solid" stroke="#15803d" markerEnd="url(#arrow-green)" />
-            <text x="445" y="190" fill="#4ade80" fontSize="10" className="font-mono-jb" textAnchor="middle">flush mutations</text>
+            <text x="445" y="160" fill="#4ade80" fontSize="10" className="font-mono-jb" textAnchor="middle">flush mutations</text>
           </g>
 
           {/* Blocked Line */}
@@ -202,13 +202,13 @@ function OfflineSyncDiagram() {
             <text x="630" y="110" fill="#c4b5fd" fontSize="10" className="font-mono-jb" textAnchor="middle">resolve conflicts</text>
 
             <path d="M 750 120 L 750 280" className="flow-line solid" stroke="#7c3aed" markerEnd="url(#arrow-purple)" />
-            <text x="760" y="200" fill="#c4b5fd" fontSize="10" className="font-mono-jb">write resolved state</text>
+            <text x="680" y="220" fill="#c4b5fd" fontSize="10" className="font-mono-jb">write resolved state</text>
 
             <path d="M 220 315 L 690 315" className="flow-line slow" stroke="#1d4ed8" markerEnd="url(#arrow-blue)" />
             <text x="450" y="305" fill="#93c5fd" fontSize="10" className="font-mono-jb" textAnchor="middle">schema mirrors (via Sync Engine)</text>
 
             <path d="M 810 280 L 810 120" className="flow-line solid reverse" stroke="#7c3aed" markerEnd="url(#arrow-purple)" />
-            <text x="820" y="200" fill="#c4b5fd" fontSize="10" className="font-mono-jb">ack</text>
+            <text x="820" y="180" fill="#c4b5fd" fontSize="10" className="font-mono-jb">ack</text>
           </g>
 
           {/* Nodes */}
