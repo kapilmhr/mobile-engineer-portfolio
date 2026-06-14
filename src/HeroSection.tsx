@@ -145,7 +145,7 @@ export function HeroSection() {
             AI-Assisted Staff Mobile Engineer · Sydney, Australia · 12+ years
           </motion.p>
 
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
@@ -163,7 +163,7 @@ export function HeroSection() {
               <br />
               mobile stack.
             </span>
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 14 }}
