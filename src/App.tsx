@@ -33,6 +33,7 @@ import { SystemArchitectureSection } from './SystemArchitectureSection';
 import { EngineeringDeepDivesSection } from './EngineeringDeepDivesSection';
 import { ThoughtLeadershipSection } from './ThoughtLeadershipSection.tsx';
 import { OpenSourceSection } from './OpenSourceSection';
+import { AIAssistedSection } from './AIAssistedSection';
 import ContactFooter from './ContactFooter';
 
 export default function App() {
@@ -73,6 +74,7 @@ export default function App() {
         <EngineeringDeepDivesSection />
         <EngineeringSolutionsSection />
         <ThoughtLeadershipSection />
+        <AIAssistedSection />
         <OpenSourceSection />
       </main>
       <ContactFooter />
@@ -127,7 +129,7 @@ function AboutSection() {
             </div>
             <div className="bio-card-body">
               <p className="bio-text">
-                Staff Engineer with 10+ years building mobile-first 
+                Staff Engineer with 12+ years building mobile-first 
                 products across <strong>consumer</strong> and 
                 <strong>enterprise</strong> — two of the most 
                 demanding domains for reliability, performance, 
@@ -153,7 +155,7 @@ function AboutSection() {
           <div className="about-stats-row">
 
             <div className="about-mini-stat">
-              <span className="mini-stat-num">10<em>+</em></span>
+              <span className="mini-stat-num">12<em>+</em></span>
               <span className="mini-stat-label">Years</span>
             </div>
 
@@ -222,18 +224,22 @@ function TechMarquee() {
 
   const renderRow = (icons: string[], reverse: boolean = false) => (
     <div className={`flex ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'} w-max py-2`}>
-      {[...icons, ...icons, ...icons].map((icon, i) => (
-        <div 
-          key={i} 
-          className="mx-4 md:mx-6 w-16 h-16 md:w-20 md:h-20 bg-zinc-900/50 border border-white/5 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:scale-110 transition-all duration-300"
-        >
-          <img 
-            src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}`} 
-            alt="tech-logo" 
-            className="w-8 h-8 md:w-10 md:h-10 object-contain" 
-          />
-        </div>
-      ))}
+      {[...icons, ...icons, ...icons].map((icon, i) => {
+        const name = icon.split('/')[0];
+        return (
+          <div
+            key={i}
+            className="mx-4 md:mx-6 w-16 h-16 md:w-20 md:h-20 bg-zinc-900/50 border border-white/5 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:scale-110 transition-all duration-300"
+          >
+            <img
+              src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}`}
+              alt={`${name} logo`}
+              loading="lazy"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 
@@ -872,7 +878,7 @@ function InteractiveTerminal() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const commands = {
-    'whoami': 'Staff Mobile Engineer with 10+ years shipping production apps across iOS, Android, Flutter, KMP, and React Native.',
+    'whoami': 'Staff Mobile Engineer with 12+ years shipping production apps across iOS, Android, Flutter, KMP, and React Native.',
     'skills': 'Native: Swift, Kotlin, SwiftUI, Jetpack Compose\nCross-Platform: Flutter, KMP, React Native\nTooling: CI/CD, Fastlane, Firebase, Datadog',
     'contact': 'Email: kapilmhr016@gmail.com\nGitHub: github.com/kapilmhr\nLinkedIn: linkedin.com/in/kapil-maharjan',
     'experience': 'Staff Mobile Engineer @ Current (2023-Present)\nSenior Mobile Engineer @ Enterprise (2020-2023)\nMobile Engineer @ Scale-up (2016-2020)',

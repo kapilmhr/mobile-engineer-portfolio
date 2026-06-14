@@ -498,7 +498,7 @@ function AuthSequenceDiagram() {
 
       {/* Header */}
       <div className="mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#f1f5f9]">Zero-Trust Auth Sequence (OAuth2 + PKCE)</h2>
+        <h3 className="text-2xl md:text-3xl font-bold text-[#f1f5f9]">Zero-Trust Auth Sequence (OAuth2 + PKCE)</h3>
         <p className="text-[#94a3b8] text-sm mt-2 font-mono">// Secure biometric login with hardware-backed keystore and token rotation</p>
       </div>
 
@@ -687,12 +687,12 @@ function AuthSequenceDiagram() {
               borderColor: steps[currentStep].color
             }}
           >
-            <h3 
+            <h4
               className="text-lg font-bold mb-4 transition-colors duration-300"
               style={{ color: steps[currentStep].color }}
             >
               {steps[currentStep].title}
-            </h3>
+            </h4>
             <p className="text-[#f1f5f9] leading-relaxed text-sm">
               {steps[currentStep].desc}
             </p>
@@ -838,9 +838,9 @@ function StartupPerformanceDiagram() {
             </svg>
             <span className="text-zinc-400 font-mono text-sm tracking-wider uppercase">Startup Critical Path</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">
             App Startup Critical Path
-          </h2>
+          </h3>
           <div className="text-zinc-400 text-sm mb-8 font-mono">
             // Optimizing Time-to-Interactive (TTI) by deferring non-critical tasks to background threads
           </div>

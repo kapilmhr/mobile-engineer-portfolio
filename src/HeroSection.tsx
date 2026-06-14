@@ -1,13 +1,19 @@
-import { motion } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import { ArrowRight, Github, Layers, MapPin, Terminal, Timer, TrendingUp, User } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 function FloatingOrbs() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref);
+  const reduceMotion = useReducedMotion();
+  // Only run the infinite drift while the hero is on-screen and motion is allowed.
+  const active = inView && !reduceMotion;
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div ref={ref} className="absolute inset-0 overflow-hidden pointer-events-none">
       <motion.div
-        animate={{ x: [0, 50, -30, 0], y: [0, -70, 40, 0], scale: [1, 1.18, 0.88, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        animate={active ? { x: [0, 50, -30, 0], y: [0, -70, 40, 0], scale: [1, 1.18, 0.88, 1] } : { x: 0, y: 0, scale: 1 }}
+        transition={active ? { duration: 20, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.4 }}
         className="absolute rounded-full"
         style={{
           top: '-15%', left: '-10%',
@@ -17,8 +23,8 @@ function FloatingOrbs() {
         }}
       />
       <motion.div
-        animate={{ x: [0, -50, 70, 0], y: [0, 60, -40, 0], scale: [1, 0.82, 1.12, 1] }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
+        animate={active ? { x: [0, -50, 70, 0], y: [0, 60, -40, 0], scale: [1, 0.82, 1.12, 1] } : { x: 0, y: 0, scale: 1 }}
+        transition={active ? { duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 5 } : { duration: 0.4 }}
         className="absolute rounded-full"
         style={{
           top: '25%', right: '-12%',
@@ -125,7 +131,7 @@ export function HeroSection() {
               style={{ backgroundColor: 'var(--hero-accent-success)', animation: 'pulse-dot 2s ease-in-out infinite' }}
             />
             <span className="font-mono text-[11px] tracking-[0.05em]" style={{ color: 'var(--hero-accent-success)' }}>
-              Staff / Principal Engineer · Sydney AU
+              Staff Mobile Engineer · Sydney, Australia
             </span>
           </motion.div>
 
@@ -136,7 +142,7 @@ export function HeroSection() {
             className="font-mono text-[11px] tracking-[0.18em] uppercase mb-5"
             style={{ color: 'var(--hero-text-secondary)' }}
           >
-            Staff Mobile Engineer · 12+ years production
+            AI-Assisted Staff Mobile Engineer · Sydney, Australia · 12+ years
           </motion.p>
 
           <motion.h1
@@ -146,11 +152,17 @@ export function HeroSection() {
             className="font-black mb-6"
             style={{ color: 'var(--hero-text-primary)', fontSize: 'clamp(36px, 5vw, 72px)', lineHeight: 1.03, letterSpacing: '-0.04em' }}
           >
-            I've shipped on
-            <br />
-            <span className="shimmer-text">every major</span>
-            <br />
-            mobile stack.
+            <span className="sr-only">
+              Kapil Maharjan — AI-assisted staff mobile engineer in Sydney, Australia,
+              building for iOS, Android, Flutter, KMP and React Native.
+            </span>
+            <span aria-hidden="true">
+              I've shipped on
+              <br />
+              <span className="shimmer-text">every major</span>
+              <br />
+              mobile stack.
+            </span>
           </motion.h1>
 
           <motion.p
